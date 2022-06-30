@@ -1,0 +1,7 @@
+{
+	"options":{
+		"base":{
+			"target": ["chrome100"]
+		}
+	}
+}
