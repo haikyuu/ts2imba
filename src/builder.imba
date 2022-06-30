@@ -214,7 +214,8 @@ export default class Builder < BaseBuilder
 				[opening, "\n"]
 		expr
 	def ConditionalExpression(node)
-		[walk(node.test), " ", "?", " ", walk(node.consequent), " ", walk(node.alternate)]
+		[walk(node.test), " ? ", walk(node.consequent), " : ", walk(node.alternate)]
+
 	def VariableDeclaration(node\Node)
 		# split declarations, 
 		let decls = node.declarations.map do {...node, declarations: [$1]}
@@ -222,6 +223,15 @@ export default class Builder < BaseBuilder
 		let declarators = decls.map do [node.kind, " ", walk $1.declarations[0]]
 		# delimit(declarators, indent!)
 	
+	def ThisExpression(node)
+		if node._prefix
+			[ "" ]
+		else
+			[ "this" ]
+
+	def ThrowStatement(node)
+		[ "throw ", walk(node.argument), "\n" ]
+
 	def VariableDeclarator(node)
 		let re = [ walk(node.id), ' = ', newline(walk node.init) ]
 
