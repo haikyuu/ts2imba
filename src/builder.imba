@@ -166,6 +166,8 @@ export default class Builder < BaseBuilder
 			[walk(node.expression), "\n"]
 		else
 			[walk(node.expression)]
+	def ImportNamespaceSpecifier(node)
+		["* as ", walk(node.local)]
 	def ObjectPattern(node\Node)
 		const list = node.properties.map(do $1.key).map do walk $1
 		let params = delimit(list, ', ')
@@ -192,12 +194,10 @@ export default class Builder < BaseBuilder
 		else
 			["{imported} as {local}"]
 	def ImportDeclaration(node)
-		# debugger
 		let specifiers = node.specifiers.map(do walk $1)
 		specifiers = delimit(specifiers, ',')
-		unless node.specifiers[0].type == 'ImportDefaultSpecifier'
+		unless node.specifiers[0].type == 'ImportDefaultSpecifier' or node.specifiers[0].type == 'ImportNamespaceSpecifier'
 			specifiers = ['{', specifiers, '}']
-		# debugger
 		["import", ' ', specifiers, " from " , walk(node.source), "\n" ]
 	def JSXFragment(node\Node)
 		let expr = indent do(_indent)
