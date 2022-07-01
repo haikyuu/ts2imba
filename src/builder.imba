@@ -48,9 +48,7 @@ export class BaseBuilder
 		# make sure to transform arr.map(walk) to arr.map do walk($1)
 		let oldLength = path.length
 		path.push(node)
-		unless node
-			debugger
-			1
+
 		type = undefined if typeof type != 'string'
 		type ||= node.type
 		let ctx = { path: path, type: type, parent: path[-2] }
@@ -228,7 +226,8 @@ export default class Builder < BaseBuilder
 			[ "" ]
 		else
 			[ "this" ]
-
+	def DebuggerStatement(node)
+		["debugger"]
 	def ThrowStatement(node)
 		[ "throw ", walk(node.argument), "\n" ]
 
@@ -320,16 +319,14 @@ export default class Builder < BaseBuilder
 	def TryStatement(node)
 		# block, handler, finalizer
 		let _try = indent do [ "try", "\n", walk(node.block) ]
-		let _catch = indent do(indent) [ indent, walk(node.handler) ]
-		let _finally = if node.finalizer?
-			indent do(indent) [ indent, "finally", "\n", walk(node.finalizer) ]
-		else
-			[]
+		let _catch = if node.handler then indent do(_indent) [ _indent, walk(node.handler) ] else []
+		let _finally = if node.finalizer then indent do(_indent) [ _indent, "finally", "\n", walk(node.finalizer) ] else []
 
 		[ _try, _catch, _finally ]
 
 	def CatchClause(node)
-		[ "catch ", walk(node.param), "\n", walk(node.body) ]
+		let param = if node.param then walk(node.param) else []
+		[ "catch ", param, "\n", walk(node.body) ]
 
 	def SwitchStatement(node)
 		let body = indent do makeStatements(node, node.cases)
@@ -533,8 +530,9 @@ export default class Builder < BaseBuilder
 	def UnaryExpression(node)
 		let isNestedUnary = do node.argument.type == 'UnaryExpression'
 		let isWord = do (/^[a-z]+$/i).test(node.operator)
-
-		if isNestedUnary() or isWord()
+		if node.operator == 'void' and node.argument..value == 0
+			["undefined"]
+		elif isNestedUnary() or isWord()
 			paren [ node.operator, ' ', walk(node.argument) ]
 		else
 			paren [ node.operator, walk(node.argument) ]
