@@ -233,12 +233,16 @@ export default class Builder < BaseBuilder
 		[ "throw ", walk(node.argument), "\n" ]
 
 	def VariableDeclarator(node)
-		let re = [ walk(node.id), ' = ', newline(walk node.init) ]
-
-		# Space out 'a = ->'
-		if node.init.type == 'FunctionExpression'
-			re = [ "\n", indent!, re, "\n" ]
+		let re
+		if node.init
+			re = [ walk(node.id), ' = ', newline(walk node.init) ]
+			if node.init.type == 'FunctionExpression'
+				# Space out 'a = ->'
+				re = [ "\n", indent!, re, "\n" ]
+		else
+			re = [ walk(node.id) ]
 		re
+
 	def Identifier(node)
 		[ node.name ]
 	def WhileStatement(node)

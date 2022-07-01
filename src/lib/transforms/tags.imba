@@ -18,7 +18,7 @@ export default class TagsTransformer > TransformerBase
 		return node if node.declarations.length > 1
 		let decl = node.declarations[0]
 		
-		return node unless decl.init.type == 'ArrowFunctionExpression'
+		return node unless decl.init..type == 'ArrowFunctionExpression'
 		
 		let func = decl.init
 		let returns = getReturnStatements(func)
