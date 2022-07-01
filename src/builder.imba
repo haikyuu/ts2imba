@@ -227,7 +227,7 @@ export default class Builder < BaseBuilder
 		else
 			[ "this" ]
 	def DebuggerStatement(node)
-		["debugger"]
+		["debugger", "\n"]
 	def ThrowStatement(node)
 		[ "throw ", walk(node.argument), "\n" ]
 
