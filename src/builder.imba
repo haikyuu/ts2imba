@@ -517,7 +517,7 @@ export default class Builder < BaseBuilder
 	# Operator (+)
 	def BinaryExpression(node)
 		let operator = node.operator
-		operator = 'of' if operator == 'in'
+		# operator = 'of' if operator == 'in'
 		paren space [ walk(node.left), operator, walk(node.right) ]
 
 	def MemberExpression(node)
