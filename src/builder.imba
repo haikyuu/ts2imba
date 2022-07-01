@@ -228,9 +228,18 @@ export default class Builder < BaseBuilder
 			[ "this" ]
 	def DebuggerStatement(node)
 		["debugger", "\n"]
+	def ContinueStatement(node)
+		["continue", "\n"]
 	def ThrowStatement(node)
 		[ "throw ", walk(node.argument), "\n" ]
+	def ForOfStatement(node, ctx)
+		# debugger
+		const left = if node.left..type == 'VariableDeclaration'
+			walk(node.left.declarations[0].id)
+		else
+			walk(node.left)
 
+		indent do ["for ", left, " in ", walk(node.right),"\n", walk(node.body)]
 	def VariableDeclarator(node)
 		let re
 		if node.init
