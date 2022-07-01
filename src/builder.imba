@@ -240,7 +240,7 @@ export default class Builder < BaseBuilder
 				# Space out 'a = ->'
 				re = [ "\n", indent!, re, "\n" ]
 		else
-			re = [ walk(node.id) ]
+			re = [ walk(node.id), "\n"]
 		re
 
 	def Identifier(node)
