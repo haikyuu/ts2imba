@@ -303,6 +303,9 @@ export default class TransformerBase
 	def FunctionExpression(node)
 		pushStack node.body
 		node
+	def ArrowFunctionExpression(node)
+		pushStack node.body
+		node
 	
 	# Added
 	def FunctionDeclaration(node)

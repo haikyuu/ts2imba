@@ -8,18 +8,19 @@ import TransformerBase from './base'
 export default class ReturnsTransformer > TransformerBase
 
 	def onScopeExit(scope, ctx, subscope, subctx)
-		unreturnify subscope
+		unreturnify scope, ctx, subscope, subctx
 
+	# def 
 	###
 	Removes return statements
 	###
 
-	def unreturnify(node, body = 'body')
-		if node[body].length > 0
-			let returns = getReturnStatements(node[body])
+	def unreturnify(scope, ctx, node, subctx)
+		if node.body..length > 0
+			let returns = getReturnStatements(node.body)
 			# Prevent implicit returns by adding an extra `return`
 			if returns.length == 0 and node.type != 'Program'
-				node[body].push type: 'ReturnStatement'
+				node.body.push type: 'ReturnStatement'
 
 			# Unpack the return statements, mutate them into
 			# expression statements if needed (`return x` => `x`)

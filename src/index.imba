@@ -15,6 +15,7 @@ import TagDeclarationTransformer from './lib/transforms/tags'
 import TailwindTransformer from './lib/transforms/tailwind'
 import LoopsTransformer from './lib/transforms/loops'
 import MembersTransformer from './lib/transforms/members'
+import ObjectsTransformer from './lib/transforms/objects'
 # import FunctionTransformer from './lbi/transforms/functions'
 # import esbuild from 'esbuild-wasm'
 
@@ -110,7 +111,7 @@ export def transform(ast, options = {})
 		LoopsTransformer
 		MembersTransformer # wip
 	# 	require('./lib/transforms/members')
-	# 	require('./lib/transforms/objects')
+		ObjectsTransformer
 	# 	require('./lib/transforms/binary')
 	# 	require('./lib/transforms/empty_statements')
 	# 	require('./lib/transforms/others')

@@ -151,14 +151,7 @@ export default class Builder < BaseBuilder
 		let expr = indent do(i)
 			["def"," ", walk(node.key) , params, "\n", walk(node.value.body) ]
 
-	def ArrowFunctionExpression(node\Node)
-		let params = makeParams(node.params, node.defaults)
-		
-		if node.body.type == 'BlockStatement'
-			indent do(i) ["do", params, "\n", walk(node.body) ]
-		else
-			["do", params," ", walk(node.body)]
-		
+
 	def JSXExpressionContainer(node\Node, ctx)
 		if ctx.parent.type == 'JSXElement'
 			[walk(node.expression), "\n"]
@@ -167,9 +160,11 @@ export default class Builder < BaseBuilder
 	def ImportNamespaceSpecifier(node)
 		["* as ", walk(node.local)]
 	def ObjectPattern(node\Node)
-		const list = node.properties.map(do $1.key).map do walk $1
+		const list = node.properties.map do walk($1)
 		let params = delimit(list, ', ')
 		['{', params , '}']
+	def RestElement(node, ctx)
+		["...", walk(node.argument)]
 	def JSXMemberExpression(node)
 		# node.object.name = node.object.name.toLowerCase!
 		# node.property.name = node.property.name.toLowerCase!
@@ -310,6 +305,18 @@ export default class Builder < BaseBuilder
 
 			[ word, ' ', test, "\n", consequent, els ]
 
+	def ArrowFunctionExpression(node\Node)
+		let params = makeParams(node.params, node.defaults)
+		
+		const expr = if node.body.type == 'BlockStatement'
+			indent do(i) ["do", params, "\n", walk(node.body) ]
+		else
+			["do", params," ", walk(node.body)]
+		if node._parenthesized
+			[ "(", expr, indent(), ")" ]
+		else
+			expr
+		
 	def FunctionExpression(node, ctx)
 		params = makeParams(node.params, node.defaults)
 

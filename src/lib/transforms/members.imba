@@ -12,10 +12,11 @@ import TransformerBase from './base'
 
 export default class MemberTransformer < TransformerBase
 
-	def MemberExpression(node)
+	def MemberExpression(node, ctx)
 		transformThisToImplicitThis(node)
-		# braceObjectOnLeft(node)
-		# replaceWithPrototype(node) or parenthesizeObjectIfFunction(node)
+		braceObjectOnLeft(node)
+		# replaceWithPrototype(node) or 
+		parenthesizeObjectIfFunction(node)
 
 	def CoffeePrototypeExpression(node)
 		transformThisToImplicitThis(node)
@@ -30,10 +31,20 @@ export default class MemberTransformer < TransformerBase
 			node.object._prefix = true
 		node
 
-#   braceObjectOnLeft: (node) ->
-#     if node.object.type is 'ObjectExpression'
-#       node.object._braced = true
-#     return
+	def braceObjectOnLeft(node)
+		if node.object.type == 'ObjectExpression'
+			node.object._braced = yes
+		return
+
+
+	###
+	 Parenthesize function expressions if they're in the left-hand side of a
+	 member expression (eg, `(-> x).toString()`).
+	###
+	def parenthesizeObjectIfFunction(node)
+		if node.object.type in ['FunctionExpression', 'ArrowFunctionExpression']
+			node.object._parenthesized = true
+		node
 
 #   ###
 #   # Replaces `a.prototype.b` with `a::b` in a member expression.
@@ -50,13 +61,3 @@ export default class MemberTransformer < TransformerBase
 #         type: 'CoffeePrototypeExpression'
 #         object: node.object.object
 #         property: node.property
-
-#   ###
-#   # Parenthesize function expressions if they're in the left-hand side of a
-#   # member expression (eg, `(-> x).toString()`).
-#   ###
-
-#   parenthesizeObjectIfFunction: (node) ->
-#     if node.object.type is 'FunctionExpression'
-#       node.object._parenthesized = true
-#     node
