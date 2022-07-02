@@ -26,7 +26,7 @@ let App = () => {
 let imba-code1 = '''
 let App = do
 	let a = 34
-	return a
+	a
 
 '''
 test 'arrow functions ' do
@@ -67,6 +67,7 @@ const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
 let imba-code3 = '''
 const b64toBlob = do(b64Data, contentType = "", sliceSize = 512)
 	const byteCharacters = atob(b64Data)
+	return
 
 '''
 test 'assignment pattern' do
