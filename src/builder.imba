@@ -159,8 +159,13 @@ export default class Builder < BaseBuilder
 			[walk(node.expression)]
 	def ImportNamespaceSpecifier(node)
 		["* as ", walk(node.local)]
-	def ObjectPattern(node\Node)
-		const list = node.properties.map do walk($1)
+	def ObjectPattern(node\Node, ctx)
+		let _in_function
+		if ctx.parent.type in ['FunctionExpression', 'ArrowFunctionExpression']
+			_in_function = yes
+		const list = node.properties.map do 
+			$1._in_function = _in_function
+			walk($1)
 		let params = delimit(list, ', ')
 		['{', params , '}']
 	def RestElement(node, ctx)
@@ -464,10 +469,14 @@ export default class Builder < BaseBuilder
 	def ExpressionStatement(node)
 		newline walk(node.expression)
 
-	def Property(node)
+	def Property(node, ctx)
 		if node.kind != 'init'
 			throw new Error "Property: not sure about kind {node.kind}"
-		space [ [walk(node.key), ":"], walk(node.value) ]
+
+		if ctx.parent.type == 'ObjectPattern' and node._in_function and (node.key.name == node.value.name or node.key..left..name == node.value.name)
+			space [walk node.value]
+		else
+			space [ [walk(node.key), ":"], walk(node.value) ]
 
 	def ObjectExpression(node, ctx)
 		let props = node.properties.length
