@@ -379,7 +379,7 @@ export default class Builder < BaseBuilder
 			indent do(_indent)
 				let elements = node.elements.map do(e) newline walk(e)
 				let contents = prependAll(elements, indent())
-				[ "[", "\n", contents, "]" ]
+				[ "[", "\n", contents, _indent, "]" ]
 	
 	# def TemplateLiteral(node)
 	# 	[quote node.value]
