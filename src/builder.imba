@@ -241,7 +241,7 @@ export default class Builder < BaseBuilder
 			re = [ walk(node.id), ' = ', newline(walk node.init) ]
 			if node.init.type == 'FunctionExpression'
 				# Space out 'a = ->'
-				re = [ "\n", indent!, re, "\n" ]
+				re = [ indent!, re, "\n" ]
 		else
 			re = [ walk(node.id), "\n"]
 		re
