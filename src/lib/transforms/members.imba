@@ -21,6 +21,9 @@ export default class MemberTransformer < TransformerBase
 	def CoffeePrototypeExpression(node)
 		transformThisToImplicitThis(node)
 
+	def CallExpression(node)
+		parenthesizeCalleeIfFunction(node)
+
 	###
 	# Converts `this.x` into `x` for MemberExpressions.
 	###
@@ -44,6 +47,11 @@ export default class MemberTransformer < TransformerBase
 	def parenthesizeObjectIfFunction(node)
 		if node.object.type in ['FunctionExpression', 'ArrowFunctionExpression']
 			node.object._parenthesized = true
+		node
+	# Add () to function if immediately called --> `(do 1)()`
+	def parenthesizeCalleeIfFunction(node)
+		if node.callee.type in ['FunctionExpression', 'ArrowFunctionExpression']
+			node.callee._parenthesized = true
 		node
 
 #   ###
