@@ -542,7 +542,8 @@ export default class Builder < BaseBuilder
 		# operator = 'of' if operator == 'in'
 		paren space [ walk(node.left), operator, walk(node.right) ]
 
-	def MemberExpression(node)
+	def MemberExpression(node, ctx)
+		
 		let right = if node.computed
 			[ '[', walk(node.property), ']' ]
 		else if node._prefixed
@@ -550,7 +551,10 @@ export default class Builder < BaseBuilder
 		else
 			[ '.', walk(node.property) ]
 
-		paren [ walk(node.object), right ]
+		let expr = paren [ walk(node.object), right ]
+		if ctx.parent.type == 'Property'
+			return ["[", expr ,"]"]
+		expr
 
 	def UnaryExpression(node)
 		let isNestedUnary = do node.argument.type == 'UnaryExpression'
