@@ -179,8 +179,20 @@ export default class Builder < BaseBuilder
 	def ImportDefaultSpecifier(node)
 		[ walk(node.local) ]
 	def ExportNamedDeclaration(node)
-		# debugger
-		['export ', walk(node.declaration)]
+		if node.specifiers
+			let specifiers = indent do
+				let props = node.specifiers.map do walk $1
+				[ "\n", joinLines(props, indent()) ]
+
+			const exported = paren [ '{', specifiers, '\n', indent(), '}' ]
+			return ['export ', exported]
+		else
+			['export ', walk(node.declaration)]
+	def ExportSpecifier(node, ctx)
+		if node.local.name == node.exported.name or node.local..left..name == node.exported.name
+			space [walk node.local]
+		else
+			space [ walk(node.local), "as", walk(node.exported) ]
 	def SpreadElement(node)
 		# debugger
 		['...', walk(node.argument)]
@@ -230,6 +242,8 @@ export default class Builder < BaseBuilder
 		["debugger", "\n"]
 	def ContinueStatement(node)
 		["continue", "\n"]
+	def BreakStatement(node)
+		["break", "\n"]
 	def ThrowStatement(node)
 		[ "throw ", walk(node.argument), "\n" ]
 	def ForOfStatement(node, ctx)
@@ -468,7 +482,6 @@ export default class Builder < BaseBuilder
 
 	def ExpressionStatement(node)
 		newline walk(node.expression)
-
 	def Property(node, ctx)
 		if node.kind != 'init'
 			throw new Error "Property: not sure about kind {node.kind}"
