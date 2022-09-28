@@ -1,5 +1,6 @@
 import {grammar} from './utils/grammar.imba' # imba/src/program/grammar.imba
 import logo from './assets/imba.svg'
+import github-logo from './assets/github-logo.svg'
 
 const base = import.meta.env.PROD ? "https://api.ts2imba.com": ""
 
@@ -249,17 +250,18 @@ export default tag App
 		css .move 
 			@keyframes move
 				0% w:0 l:0 o:0
-				50% w:100% l:0 o:1
+				30% w:100% l:0 o:1
 				100% w:0 l:100% o:0
 		<header[d:flex fld:row ai:center h:80px]>
-			<svg[size:12] src=logo>
+			<a href="https://imba.io" target="_blank"> <svg[size:12 filter:url(#red-glow)] src=logo>
 			<div[pos:relative]>
 				<span[fw:600 fs:2xl ff:mono c:amber3 ml:2]> "TS 2 Imba"
 				for i in [1 .. 3]
-					<div.move[pos:absolute b:{i} h:{2/3} rd:3 bg:blue3/20 zi:-1 w:100% animation:move 4s infinite forwards animation-delay:{i*200}ms]>
+					<div.move[pos:absolute b:{i} h:{2/3} rd:3 bg:red3/30 zi:-1 w:100% animation:move 4s infinite forwards animation-delay:{i*200}ms]>
 			<span[fw:400 fs:lg ff:mono c:amber1 ml:5 mb:-1]> "Transform js, ts or tsx and tailwind classes to imba"
 			<button type="button" @click=convert [mx:4 cursor:pointer d:inline-flex ai:center rd:md bw:1px bc:transparent bgc:amber1 px:1rem py:.5rem fs:1rem lh:1.5rem fw:500 c:cool8 bxs:sm bgc@hover:amber2 outline@focus:2px solid transparent outline-offset@focus:2px bxs@focus:0 0 0 ,0 0 0 2px,1]>
 				"Convert"
+			<a[filter@hover:url(#red-glow)] href="https://github.com/haikyuu/ts2imba" target="_blank"> <svg[size:8 c:white stroke:amber3] src=github-logo>
 			<footer[w:100 d:flex fld:row ai:center]>
 				<#container1[w:100%]>
 				<#container2[w:100%]>
