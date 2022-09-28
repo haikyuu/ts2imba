@@ -5,6 +5,8 @@
   "scripts": {
     "test": "vitest",
     "start": "imba server.imba",
+	"build": "npm run build:client && npm run build:server",
+	"build:client": "vite build",
     "build:server": "imba build server.imba",
     "build:server:watch": "imba build -w server.imba"
   },
