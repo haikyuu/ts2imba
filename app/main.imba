@@ -1,5 +1,8 @@
 import {grammar} from './utils/grammar.imba' # imba/src/program/grammar.imba
 import logo from './assets/imba.svg'
+
+const base = import.meta.env.PROD ? "https://api.ts2imba.com": ""
+
 global css
 	body,html,#app size:100% bg:bl
 	@root
@@ -235,7 +238,7 @@ export default tag App
 		convert!
 	def convert
 		const body = JSON.stringify code: ts-code
-		const res = await global.fetch "/api/imba", {
+		const res = await global.fetch "{base}/api/imba", {
 			body:body, method:"POST", headers: {'Content-Type': 'application/json'},
 		}
 		const code = (await res.json!).code
@@ -266,4 +269,4 @@ export default tag App
 		
 
 
-imba.mount <App>, document..getElementById "app" if $web$
+imba.mount <App>, document..getElementById "app"
