@@ -14,6 +14,6 @@ if true
 '''
 test 'multiple_var_declarations_with_indent' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
 	console.log out.js

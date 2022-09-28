@@ -9,13 +9,7 @@ class Comp{
 }
 '''
 
-let imba-code = '''
-class Comp
-	def render
-		<img>
-
-'''
-test 'spaces_4' do
+test 'normal class with jsx' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')

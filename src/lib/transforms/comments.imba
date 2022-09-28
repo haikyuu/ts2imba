@@ -1,4 +1,3 @@
-console.log 1
 import TransformerBase from './base'
 
 ###

@@ -16,8 +16,8 @@ else
 	let b = 2
 
 '''
-test 'empty_array' do
+test 'if else basic 12' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
 	console.log out.js

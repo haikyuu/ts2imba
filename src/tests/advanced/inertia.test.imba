@@ -293,7 +293,7 @@ const inertiaExpressAdapter = do({version, html, flashMessages, enableReload = f
 export default inertiaExpressAdapter
 
 '''
-test 'inertia example' do
+test 'inertia example 112' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')

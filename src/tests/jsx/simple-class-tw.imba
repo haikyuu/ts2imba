@@ -22,7 +22,7 @@ tag App
 '''
 test 'simple class' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
 
 let tsx-code2 = '''
@@ -46,7 +46,7 @@ tag App
 '''
 test 'simple class with breakpoint' do
 	const result = await build tsx-code2
-	expect(result.code).toEqual(imba-code2)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
 
 let tsx-code3 = '''
@@ -70,5 +70,5 @@ tag App
 '''
 test 'falls back to color1 for color-0.5 in tailwind' do
 	const result = await build tsx-code3
-	expect(result.code).toEqual(imba-code3)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')

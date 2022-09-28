@@ -13,6 +13,7 @@ let imba-code = '''
 {imba-code.trim!}
 '''
 """
+	# TODO: verify it's working and switch to snapshots
 	o += """\ntest '{fileName}' do
 		\tconst result = build tsx-code
 		\texpect(result.code).toEqual(imba-code)

@@ -10,6 +10,6 @@ a = -1.21e3
 '''
 test 'scientific_notation' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
 	console.log out.js

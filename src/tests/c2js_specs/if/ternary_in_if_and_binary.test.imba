@@ -11,6 +11,6 @@ if x and (if a then b else c)
 '''
 test 'ternary_in_if_and_binary' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
 	console.log out.js

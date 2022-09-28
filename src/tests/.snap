@@ -1,135 +1,272 @@
 // Vitest Snapshot v1
 
-exports[`nested_objects_advanced 1`] = `
-"export default
-	rate: 14.7645
-	country: \\"TR\\"
-	currency: \\"TRY\\"
-	products:
-		annual:
-			id: \\"annual\\"
-			name: \\"Yearly\\"
-			price: 1560
-			coupons: []
-			display:
-				price: \\"1.560TL\\"
-				price_usd: \\"$110\\"
-				baseline_api_id: \\"reference\\"
-				discount_to_baseline: 77
-				baseline_price_formatted: \\"570TL\\"
-				reference_interval_price: \\"130TL\\"
-				price_with_baseline_strike: \\"5̶7̶0̶T̶L̶ 130TL\\"
-			duration: \\"year\\"
-			interval: \\"month\\"
-			price_usd: 105.6588438484202
-			integrations:
-				stripe:
-					amount: 156000
-					currency: \\"TRY\\"
-					formatted: \\"1.560TL\\"
-			interval_count: 12
-			price_formatted: \\"1.560TL\\"
-		monthly:
-			id: \\"monthly\\"
-			name: \\"Monthly\\"
-			price: 260
-			coupons: []
-			display:
-				price: \\"260TL\\"
-				price_usd: \\"$18\\"
-				baseline_api_id: \\"reference\\"
-				discount_to_baseline: 54
-				baseline_price_formatted: \\"570TL\\"
-				reference_interval_price: \\"260TL\\"
-				price_with_baseline_strike: \\"5̶7̶0̶T̶L̶ 260TL\\"
-			duration: \\"month\\"
-			interval: \\"month\\"
-			price_usd: 17.60980730807003
-			integrations:
-				stripe:
-					amount: 26000
-					currency: \\"TRY\\"
-					formatted: \\"260TL\\"
-			interval_count: 1
-			price_formatted: \\"260TL\\"
-		bootcamp:
-			id: \\"bootcamp\\"
-			price: 3500
-			coupons: []
-			display:
-				price: \\"3.500TL\\"
-				price_usd: \\"$210\\"
-				baseline_api_id: \\"bootcamp\\"
-				discount_to_baseline: 0
-				baseline_price_formatted: \\"3.500TL\\"
-				reference_interval_price: \\"3.500TL\\"
-				price_with_baseline_strike: \\"3.500TL\\"
-			interval: \\"month\\"
-			price_usd: 202.56188699708946
-			integrations:
-				stripe:
-					amount: 350000
-					currency: \\"TRY\\"
-					formatted: \\"3.500TL\\"
-			interval_count: 1
-			price_formatted: \\"3.500TL\\"
-		semester:
-			id: \\"semester\\"
-			name: \\"Half-year\\"
-			price: 960
-			coupons: [
-				id: 485
-				sum: null
-				uid: \\"ua4aPkAq\\"
-				code: \\"ua4aPkAq-2990ec42\\"
-				limit: 1
-				plans: [\\"6\\"]
-				title: \\"24 hour discount\\"
-				users: null
-				groups: null
-				percent: 0.75
-				created_at: \\"2022-06-16T13:16:02.825Z\\"
-				expires_at: \\"2022-06-17T13:16:02.824Z\\"
-				description: \\"Nice course progress by ua4aPkAq - gtailwind\\"]
-			display:
-				price: \\"960TL\\"
-				price_usd: \\"$66\\"
-				baseline_api_id: \\"reference\\"
-				discount_to_baseline: 71
-				baseline_price_formatted: \\"570TL\\"
-				reference_interval_price: \\"160TL\\"
-				price_with_baseline_strike: \\"5̶7̶0̶T̶L̶ 160TL\\"
-			duration: \\"half-year\\"
-			interval: \\"month\\"
-			price_usd: 65.0208269836432
-			integrations:
-				stripe:
-					amount: 96000
-					currency: \\"TRY\\"
-					formatted: \\"960TL\\"
-			interval_count: 6
-			price_formatted: \\"960TL\\"
-		reference:
-			id: \\"reference\\"
-			price: 570
-			coupons: []
-			display:
-				price: \\"570TL\\"
-				price_usd: \\"$39\\"
-				baseline_api_id: \\"reference\\"
-				discount_to_baseline: 0
-				baseline_price_formatted: \\"570TL\\"
-				reference_interval_price: \\"570TL\\"
-				price_with_baseline_strike: \\"570TL\\"
-			interval: \\"month\\"
-			price_usd: 38.60611602153815
-			integrations:
-				stripe:
-					amount: 57000
-					currency: \\"TRY\\"
-					formatted: \\"570TL\\"
-			interval_count: 1
-			price_formatted: \\"570TL\\"
-	currency_symbol: \\"TL\\"
+exports[`advanced nesting 1`] = `
+"tag App
+	def render
+		<self>
+			<div>
+				<span>
+					\\"Test\\"
+				<div>
+					<h2>
+						\\"Title\\"
+					<div>
+						<span>
+							<a href=\\"\\">
+							<span>
+								\\"Test 2\\"
+							\\"Text\\"
+				<footer>
+					\\"F\\"
+"
+`;
+
+exports[`arrow functions component 1`] = `
+"tag App
+	def render
+		<self>
+			<div>
+				<span>
+					\\"Test\\"
+"
+`;
+
+exports[`empty_array 1`] = `
+"let a = []
+"
+`;
+
+exports[`empty_array fzy 1`] = `
+"let SCORE_MIN = -Infinity
+let SCORE_MAX = Infinity
+let SCORE_GAP_LEADING = -0.005
+let SCORE_GAP_TRAILING = -0.005
+let SCORE_GAP_INNER = -0.01
+let SCORE_MATCH_CONSECUTIVE = 1
+let SCORE_MATCH_SLASH = 0.9
+let SCORE_MATCH_WORD = 0.8
+let SCORE_MATCH_CAPITAL = 0.7
+let SCORE_MATCH_DOT = 0.6
+def islower(s)
+	return s.toLowerCase() === s
+def isupper(s)
+	return s.toUpperCase() === s
+def precompute_bonus(haystack)
+	let m = haystack.length
+	let match_bonus = new Array(m)
+	let last_ch = \\"/\\"
+	let i = 0
+	while i < m
+		let ch = haystack[i]
+		if last_ch === \\"/\\"
+			match_bonus[i] = SCORE_MATCH_SLASH
+		else if last_ch === \\"-\\" or last_ch === \\"_\\" or last_ch === \\" \\"
+			match_bonus[i] = SCORE_MATCH_WORD
+		else if last_ch === \\".\\"
+			match_bonus[i] = SCORE_MATCH_DOT
+		else if islower(last_ch) and isupper(ch)
+			match_bonus[i] = SCORE_MATCH_CAPITAL
+		else
+			match_bonus[i] = 0
+		last_ch = ch
+		i++
+	return match_bonus
+def compute(needle, haystack, D, M)
+	let n = needle.length
+	let m = haystack.length
+	let lower_needle = needle.toLowerCase()
+	let lower_haystack = haystack.toLowerCase()
+	let match_bonus = precompute_bonus(haystack, match_bonus)
+	let i = 0
+	while i < n
+		D[i] = new Array(m)
+		M[i] = new Array(m)
+		let prev_score = SCORE_MIN
+		let gap_score = i === n - 1 ? SCORE_GAP_TRAILING : SCORE_GAP_INNER
+		let j = 0
+		while j < m
+			if lower_needle[i] === lower_haystack[j]
+				let score2 = SCORE_MIN
+				if !i
+					score2 = j * SCORE_GAP_LEADING + match_bonus[j]
+				else if j
+					score2 = Math.max(M[i - 1][j - 1] + match_bonus[j], D[i - 1][j - 1] + SCORE_MATCH_CONSECUTIVE)
+				D[i][j] = score2
+				M[i][j] = prev_score = Math.max(score2, prev_score + gap_score)
+			else
+				D[i][j] = SCORE_MIN
+				M[i][j] = prev_score = prev_score + gap_score
+			j++
+		i++
+def score(needle, haystack)
+	let n = needle.length
+	let m = haystack.length
+	if !n or !m
+		return SCORE_MIN
+	if n === m
+		return SCORE_MAX
+	if m > 1024
+		return SCORE_MIN
+	let D = new Array(n)
+	let M = new Array(n)
+	compute needle, haystack, D, M
+	return M[n - 1][m - 1]
+def positions(needle, haystack)
+	let n = needle.length
+	let m = haystack.length
+	let positions2 = new Array(n)
+	if !n or !m
+		return positions2
+	if n === m
+		let i = 0
+		while i < n
+			positions2[i] = i
+			i++
+		return positions2
+	if m > 1024
+		return positions2
+	let D = new Array(n)
+	let M = new Array(n)
+	compute needle, haystack, D, M
+	let match_required = false
+	let i = n - 1
+let j = m - 1
+	while i >= 0
+		while j >= 0
+			if D[i][j] !== SCORE_MIN and match_required or D[i][j] === M[i][j]
+				match_required = i and j and M[i][j] === D[i - 1][j - 1] + SCORE_MATCH_CONSECUTIVE
+				positions2[i] = j--
+				break
+			j--
+		i--
+	return positions2
+def hasMatch(needle, haystack)
+	needle = needle.toLowerCase()
+	haystack = haystack.toLowerCase()
+	let l = needle.length
+	let i = 0
+let j = 0
+	while i < l
+		j = haystack.indexOf(needle[i], j) + 1
+		if j === 0
+			return false
+		i += 1
+	return true
+export {
+	SCORE_MIN
+	SCORE_MAX
+	SCORE_GAP_LEADING
+	SCORE_GAP_TRAILING
+	SCORE_GAP_INNER
+	SCORE_MATCH_CONSECUTIVE
+	SCORE_MATCH_SLASH
+	SCORE_MATCH_WORD
+	SCORE_MATCH_CAPITAL
+	SCORE_MATCH_DOT
+	score
+	positions
+	hasMatch
+}
+"
+`;
+
+exports[`multiple_items 1`] = `
+"let a = [
+	1
+	2
+	3
+	4
+]
+"
+`;
+
+exports[`normal class with jsx 1`] = `
+"class Comp
+	def render
+		<img>
+"
+`;
+
+exports[`self closing 1`] = `
+"tag App
+	def render
+		<self>
+			<div [bgc:gray2]>
+				<div>
+					<img src=\\"\\">
+				<span>
+					\\"Test\\"
+"
+`;
+
+exports[`spaces_4 1`] = `
+"tag App
+	def render
+		<self>
+			<div>
+				<span>
+					\\"Test\\"
+"
+`;
+
+exports[`switch.imba 1`] = `
+"export default fetch: do(request, env)
+	const url = new URL(request.url)
+	const key = url.pathname.slice(1)
+	switch request.method
+		when \\"PUT\\"
+			await env.MY_BUCKET.put(key, request.body)
+			return new Response(\\"Put {key} successfully!\\")
+		when \\"GET\\"
+			const object = await env.MY_BUCKET.get(key)
+			if object === null
+				return new Response(\\"Object Not Found\\", status: 404)
+			const headers = new Headers
+			object.writeHttpMetadata headers
+			headers.set \\"etag\\", object.httpEtag
+			return new Response(object.body, headers: headers)
+		when \\"DELETE\\"
+			await env.MY_BUCKET.delete(key)
+			return new Response(\\"Deleted!\\")
+		else
+			return new Response(\\"Method Not Allowed\\",
+				status: 405
+				headers:
+					Allow: \\"PUT, GET, DELETE\\")
+	return
+"
+`;
+
+exports[`while 1`] = `
+"def byteaToBinary(input)
+	if /^\\\\x/.test(input)
+		return byteaHexFormatToBinary(input)
+	return byteaEscapeFormatToBinary(input)
+def byteaHexFormatToBinary(input)
+	return Buffer.from(input.substr(2), \\"hex\\")
+def byteaEscapeFormatToBinary(input)
+	let output = \\"\\"
+	let i = 0
+	while i < input.length
+		if input[i] !== \\"\\\\\\\\\\"
+			output += input[i]
+			++i
+		else
+			if /[0-7]{3}/.test(input.substr(i + 1, 3))
+				output += String.fromCharCode(parseInt(input.substr(i + 1, 3), 8))
+				i += 4
+			else
+				let backslashes = 1
+				while i + backslashes < input.length and input[i + backslashes] === \\"\\\\\\\\\\"
+					backslashes++
+				let k = 0
+				while k < Math.floor(backslashes / 2)
+					output += \\"\\\\\\\\\\"
+					++k
+				i += Math.floor(backslashes / 2) * 2
+	def a
+		const a2 = await output
+		console.log a2
+	Buffer.from output, \\"binary\\"
 "
 `;

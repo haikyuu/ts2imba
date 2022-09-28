@@ -15,7 +15,7 @@ export default tag Example
 
 test 'tailwind css code 1' do
 	const result = await build tsx-code1
-	expect(result.code).toEqual(imba-code1)
+	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
 
 let tsx-code = '''
@@ -153,5 +153,5 @@ export default tag Example
 '''
 test 'tailwind css code' do
 	const result = await build tsx-code
-	expect(result.code).toEqual(imba-code)
+	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
