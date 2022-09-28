@@ -8,32 +8,15 @@ try{
 	console.log(3)
 }
 '''
-# There is a space after '='
-let imba-code3 = '''
-try
-	const a = 2
-catch error
-	console.log 3
-
-'''
-test.only 'nested_objects 1' do
+test 'nested_objects 1' do
 	const result = await build tsx-code3
-	expect(result.code).toEqual(imba-code3)
+	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
 
 
 
 let tsx-code = '''
 let a = { "b": { "x": 3, "y": 3 }, d: 4 }
-'''
-# There is a space after '='
-let imba-code = '''
-let a = 
-	b:
-		x: 3
-		y: 3
-	d: 4
-
 '''
 test 'nested_objects 2' do
 	const result = await build tsx-code
