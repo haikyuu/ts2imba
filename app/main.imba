@@ -235,7 +235,7 @@ export default tag App
 		convert!
 	def convert
 		const body = JSON.stringify code: ts-code
-		const res = await global.fetch "/imba", {
+		const res = await global.fetch "/api/imba", {
 			body:body, method:"POST", headers: {'Content-Type': 'application/json'},
 		}
 		const code = (await res.json!).code
