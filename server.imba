@@ -3,7 +3,12 @@ import path, {dirname, basename} from "path"
 import {pathToFileURL} from "url"
 import express from "express"
 import {build} from "./src"
+import cors from 'cors'
 
+const corsOptions = {
+	origin: 'http://api.ts2imba.com',
+	optionsSuccessStatus: 200
+}
 let port = 3000
 const args = process.argv.slice(2)
 const portArgPos = args.indexOf("--port") + 1
@@ -12,7 +17,8 @@ if portArgPos > 0
 
 def createServer(root = process.cwd(), isProd = process.env.NODE_ENV === "production")
 	const app = express()
-	app.use(express.json());
+	app.use express.json()
+	app.use cors(corsOptions)
 	app.post("/api/imba") do(req, res)
 		console.log "helloo"
 		const tsx-code = req.body..code
