@@ -6,7 +6,7 @@ import {build} from "./src"
 import cors from 'cors'
 
 const corsOptions = {
-	origin: 'http://api.ts2imba.com',
+	origin: 'http://ts2imba.com',
 	optionsSuccessStatus: 200
 }
 let port = 3000
