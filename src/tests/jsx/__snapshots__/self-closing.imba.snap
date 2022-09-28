@@ -1,0 +1,13 @@
+// Vitest Snapshot v1
+
+exports[`self closing 11 1`] = `
+"tag App
+	def render
+		<self>
+			<div [bgc:gray2]>
+				<div>
+					<img src=\\"\\">
+				<span>
+					\\"Test\\"
+"
+`;

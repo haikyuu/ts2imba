@@ -21,8 +21,7 @@ x = ->
 
 a()
 '''
-test 'comment_before_function' do
+test 'comment_before_function 1' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
-	console.log out.js

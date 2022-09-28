@@ -1,0 +1,9 @@
+// Vitest Snapshot v1
+
+exports[`if else basic 124 1`] = `
+"if e
+	let a = 2
+else
+	let b = 2
+"
+`;

@@ -1,0 +1,11 @@
+// Vitest Snapshot v1
+
+exports[`spaces_4 1`] = `
+"tag App
+	def render
+		<self>
+			<div>
+				<span>
+					\\"Test\\"
+"
+`;

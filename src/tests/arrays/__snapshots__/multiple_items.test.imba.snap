@@ -1,0 +1,11 @@
+// Vitest Snapshot v1
+
+exports[`multiple_items 1`] = `
+"let a = [
+	1
+	2
+	3
+	4
+]
+"
+`;

@@ -1,0 +1,113 @@
+// Vitest Snapshot v1
+
+exports[`inertia example 112 1`] = `
+"import debug from \\"debug\\"
+import {RequestHandler,Response} from \\"express\\"
+const log = debug(\\"inertia-node-adapter:express\\")
+export const headers = 
+	xInertia: \\"x-inertia\\"
+	xInertiaVersion: \\"x-inertia-version\\"
+	xInertiaLocation: \\"x-inertia-location\\"
+	xInertiaPartialData: \\"x-inertia-partial-data\\"
+	xInertiaPartialComponent: \\"x-inertia-partial-component\\"
+	xInertiaCurrentComponent: \\"x-inertia-current-component\\"
+const inertiaExpressAdapter = do({version, html, flashMessages, enableReload = false})
+	return do(req, res, next)
+		if req.method === \\"GET\\" and req.headers[headers.xInertia] and req.headers[headers.xInertiaVersion] !== version
+			return req.session.destroy(do
+				res.writeHead(409, [headers.xInertiaLocation]: [req.url]).end()
+			)
+		let _viewData = {}
+		let _sharedProps = {}
+		let _statusCode = 200
+		let _headers = {}
+		const Inertia = 
+			setViewData: do(viewData)
+				_viewData = viewData
+				return this
+			shareProps: do(sharedProps)
+				_sharedProps = {
+					..._sharedProps
+					...sharedProps
+				}
+				return this
+			setStatusCode: do(statusCode)
+				_statusCode = statusCode
+				return this
+			setHeaders: do(headers2)
+				_headers = {
+					...req.headers
+					..._headers
+					...headers2
+				}
+				return this
+			render: do({props, ...pageRest})
+				const _page = {
+					...pageRest
+					url: req.originalUrl or req.url
+					version: version
+					props: props
+				}
+				log \\"rendering\\", _page
+				if flashMessages
+					log \\"Flashing messages\\"
+					shareProps flash: flashMessages(req)
+				if enableReload
+					log \\"Setting session for reloading components\\"
+					req.session.xInertiaCurrentComponent = pageRest.component
+				const allProps = {
+					..._sharedProps
+					...props
+				}
+				let dataKeys
+				const partialDataHeader = req.headers[headers.xInertiaPartialData]
+				if partialDataHeader and req.headers[headers.xInertiaPartialComponent] === _page.component and typeof partialDataHeader === \\"string\\"
+					dataKeys = partialDataHeader.split(\\",\\")
+				else
+					log \\"partial requests without the name of the component return a full request\\", _page.component
+					log \\"header partial component\\", req.headers[headers.xInertiaPartialComponent]
+					dataKeys = Object.keys(allProps)
+				const propsRecord = {}
+				for key in dataKeys
+					log \\"parsing props keys\\", dataKeys
+					let value
+					if typeof allProps[key] === \\"function\\"
+						value = await allProps[key]()
+						log \\"prop promise resolved\\", key
+					else
+						value = allProps[key]
+					propsRecord[key] = value
+				_page.props = propsRecord
+				log \\"Page props built\\", _page.props
+				if req.headers[headers.xInertia]
+					res.status(_statusCode).set({
+						..._headers
+						\\"Content-Type\\": \\"application/json\\"
+						[headers.xInertia]: \\"true\\"
+						Vary: \\"Accept\\"
+					}).send JSON.stringify(_page)
+					log \\"sent response with headers\\"
+					log res.getHeaders()
+				else
+					log \\"Sending the default html as no inertia header is present\\"
+					res.status(_statusCode).set({
+						...req.headers
+						..._headers
+						\\"Content-Type\\": \\"text/html\\"
+					}).send html(_page, _viewData)
+				return res
+			redirect: do(url)
+				const statusCode = [
+					\\"PUT\\"
+					\\"PATCH\\"
+					\\"DELETE\\"
+				].includes(req.method) ? 303 : 302
+				res.redirect statusCode, url
+				log \\"Redirecting to {req.method} {url}\\"
+				res
+		req.Inertia = Inertia
+		return next()
+
+export default inertiaExpressAdapter
+"
+`;

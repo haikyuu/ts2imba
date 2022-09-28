@@ -41,7 +41,7 @@ export default {
 };
 '''
 
-test 'switch.imba' do
+test 'switch.imba 1' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')

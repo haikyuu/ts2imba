@@ -29,7 +29,6 @@ export default defineConfig(({ command, mode }) => {
 			exclude: ["src/tests/c2js_specs/**/*"],
 			globals: true,
 			include: ["src/tests/**/*.imba"],
-			resolveSnapshotPath: (testPath, snapExtension) => path.join(__dirname, "/src/tests", snapExtension),
 		},
 	}
 });

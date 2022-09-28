@@ -14,7 +14,7 @@ let imba-code = '''
 '''
 """
 	# TODO: verify it's working and switch to snapshots
-	o += """\ntest '{fileName}' do
+	o += """\ntest '{fileName} {Date.now!}' do
 		\tconst result = build tsx-code
 		\texpect(result.code).toEqual(imba-code)
 		\tconst out = imbac.compile(result.code, sourceId: 'sth')

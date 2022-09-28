@@ -1,0 +1,30 @@
+// Vitest Snapshot v1
+
+exports[`arrow functions 1223 1`] = `
+"let App = do
+	let a = 34
+	a
+"
+`;
+
+exports[`arrow functions component 1`] = `
+"tag App
+	def render
+		<self>
+			<div>
+				<span>
+					\\"Test\\"
+"
+`;
+
+exports[`assignment pattern 23 1`] = `
+"const b64toBlob = do(b64Data, contentType = \\"\\", sliceSize = 512)
+	const byteCharacters = atob(b64Data)
+	return
+"
+`;
+
+exports[`two params 33 1`] = `
+"let x = do(i, j) i + j
+"
+`;

@@ -9,15 +9,7 @@ if(e){
 }
 '''
 
-let imba-code = '''
-if e
-	let a = 2
-else
-	let b = 2
-
-'''
-test 'if else basic 12' do
+test 'if else basic 124' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
-	console.log out.js

@@ -19,8 +19,7 @@ if x
 
   y()
 '''
-test 'indented_jsdoc_comments' do
+test 'indented_jsdoc_comments 23' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
-	console.log out.js

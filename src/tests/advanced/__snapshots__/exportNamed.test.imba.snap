@@ -1,0 +1,12 @@
+// Vitest Snapshot v1
+
+exports[`inertia example 32 1`] = `
+"export const headers = 
+	xInertia: \\"x-inertia\\"
+	xInertiaVersion: \\"x-inertia-version\\"
+	xInertiaLocation: \\"x-inertia-location\\"
+	xInertiaPartialData: \\"x-inertia-partial-data\\"
+	xInertiaPartialComponent: \\"x-inertia-partial-component\\"
+	xInertiaCurrentComponent: \\"x-inertia-current-component\\"
+"
+`;

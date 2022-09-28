@@ -16,7 +16,7 @@ catch error
 	console.log 3
 
 '''
-test.only 'nested_objects' do
+test.only 'nested_objects 1' do
 	const result = await build tsx-code3
 	expect(result.code).toEqual(imba-code3)
 	const out = imbac.compile(result.code, sourceId: 'sth')
@@ -35,7 +35,7 @@ let a =
 	d: 4
 
 '''
-test 'nested_objects' do
+test 'nested_objects 2' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
@@ -200,7 +200,7 @@ export default {
 	"currency_symbol": "TL"
 }
 '''
-test 'nested_objects_advanced' do
+test 'nested_objects_advanced 3' do
 	const result = await build tsx-code2
 	console.log result.code
 	expect(result.code).toMatchSnapshot!

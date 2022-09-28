@@ -18,23 +18,9 @@ function App(){
 }
 '''
 
-let imba-code2 = '''
-tag App
-	def render
-		<self>
-			<div>
-				<section>
-					<div>
-						<div>
-							<h2>
-								"Title"
-				<footer>
-					"F"
-
-'''
-test 'multiple levels closed at once' do
+test 'multiple levels closed at once 31' do
 	const result = await build tsx-code2
-	expect(result.code).toEqual(imba-code2)
+	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
 
 let tsx-code3 = '''
@@ -50,21 +36,9 @@ function App(){
 }
 '''
 
-let imba-code3 = '''
-tag App
-	def render
-		<self>
-			<div>
-				<div>
-					<h3>
-						"Title"
-				<footer>
-					"F"
-
-'''
-test 'self closing nesting' do
+test 'self closing nesting 12' do
 	const result = await build tsx-code3
-	expect(result.code).toEqual(imba-code3)
+	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
 
 
@@ -80,19 +54,9 @@ function App(){
 }
 '''
 
-let imba-code1 = '''
-tag App
-	def render
-		<self>
-			<div>
-				<a href="">
-				<span>
-					"Test 2"
-
-'''
 test 'self closing nesting' do
 	const result = await build tsx-code1
-	expect(result.code).toEqual(imba-code1)
+	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
 
 
@@ -116,28 +80,7 @@ function App(){
 	)
 }
 '''
-
-let imba-code = '''
-tag App
-	def render
-		<self>
-			<div>
-				<span>
-					"Test"
-				<div>
-					<h2>
-						"Title"
-					<div>
-						<span>
-							<a href="">
-							<span>
-								"Test 2"
-							"Text"
-				<footer>
-					"F"
-
-'''
-test 'advanced nesting' do
+test 'advanced nesting 333' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')

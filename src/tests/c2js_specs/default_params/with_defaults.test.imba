@@ -7,12 +7,7 @@ function greet(name = 'Bob') {
 }
 '''
 
-let imba-code = '''
-greet = (name = 'Bob') ->
-  name
-'''
-test 'with_defaults' do
+test 'with_defaults 33' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
-	console.log out.js

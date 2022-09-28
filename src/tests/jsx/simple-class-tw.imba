@@ -11,15 +11,6 @@ function App(){
 }
 '''
 
-let imba-code = '''
-tag App
-	def render
-		<self>
-			<div[bgc:gray2]>
-				<span>
-					"Test"
-
-'''
 test 'simple class' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
@@ -35,15 +26,6 @@ function App(){
 }
 '''
 
-let imba-code2 = '''
-tag App
-	def render
-		<self>
-			<div[bgc@md:gray2]>
-				<span>
-					"Test"
-
-'''
 test 'simple class with breakpoint' do
 	const result = await build tsx-code2
 	expect(result.code).toMatchSnapshot()
@@ -59,15 +41,6 @@ function App(){
 }
 '''
 
-let imba-code3 = '''
-tag App
-	def render
-		<self>
-			<div[bgc@md:gray1]>
-				<span>
-					"Test"
-
-'''
 test 'falls back to color1 for color-0.5 in tailwind' do
 	const result = await build tsx-code3
 	expect(result.code).toMatchSnapshot()

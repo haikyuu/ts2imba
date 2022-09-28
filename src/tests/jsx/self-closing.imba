@@ -14,18 +14,7 @@ function App(){
 }
 '''
 
-let imba-code = '''
-tag App
-	def render
-		<self>
-			<div[bgc:gray2]>
-				<div>
-					<img src="">
-				<span>
-					"Test"
-
-'''
-test 'self closing' do
+test 'self closing 11' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
