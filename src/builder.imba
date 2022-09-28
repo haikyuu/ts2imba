@@ -433,7 +433,7 @@ export default class Builder < BaseBuilder
 	def JSXAttribute(node)
 		console.log "unhandled classes", node.imba..unhandled-classes if node.imba..unhandled-classes.length
 		if node.imba..inline-styles..length
-			["[{node.imba.inline-styles.join(' ')}]"]
+			[" [{node.imba.inline-styles.join(' ')}]"]
 		elif node.value
 			# debugger
 			[" {walk node.name}={walk node.value}"]
