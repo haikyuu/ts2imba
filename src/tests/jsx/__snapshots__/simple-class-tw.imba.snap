@@ -2,30 +2,27 @@
 
 exports[`falls back to color1 for color-0.5 in tailwind 1`] = `
 "tag App
-	def render
-		<self>
-			<div [bgc@md:gray1]>
-				<span>
-					\\"Test\\"
+	<self>
+		<div [bgc@md:gray1]>
+			<span>
+				\\"Test\\"
 "
 `;
 
 exports[`simple class 1`] = `
 "tag App
-	def render
-		<self>
-			<div [bgc:gray2]>
-				<span>
-					\\"Test\\"
+	<self>
+		<div [bgc:gray2]>
+			<span>
+				\\"Test\\"
 "
 `;
 
 exports[`simple class with breakpoint 1`] = `
 "tag App
-	def render
-		<self>
-			<div [bgc@md:gray2]>
-				<span>
-					\\"Test\\"
+	<self>
+		<div [bgc@md:gray2]>
+			<span>
+				\\"Test\\"
 "
 `;

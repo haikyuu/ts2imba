@@ -2,12 +2,11 @@
 
 exports[`self closing 11 1`] = `
 "tag App
-	def render
-		<self>
-			<div [bgc:gray2]>
-				<div>
-					<img src=\\"\\">
-				<span>
-					\\"Test\\"
+	<self>
+		<div [bgc:gray2]>
+			<div>
+				<img src=\\"\\">
+			<span>
+				\\"Test\\"
 "
 `;

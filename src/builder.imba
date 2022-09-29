@@ -476,6 +476,9 @@ export default class Builder < BaseBuilder
 				[kind," ", walk(node.id) , '<', walk(node.superClass), "\n", walk(node.body) ]
 			else
 				[kind," ", walk(node.id), "\n", walk(node.body) ]
+	def RenderMethodInline(node, ctx)
+		debugger
+		walk node.body
 	def ClassBody(node, ctx)
 		# 
 		const walked = node.body.map do walk $1

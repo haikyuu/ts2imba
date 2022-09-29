@@ -67,6 +67,21 @@ export default class TagsTransformer > TransformerBase
 				attributes: []
 			}
 		}
+		let body = [{
+			type: "MethodDefinition"
+			value:
+				params: []
+				body: node.body
+			body: node.body
+			key:
+				type: "Identifier"
+				name: "render"
+		}]
+		if node.body.body.length == 1 and node.body.body[0].type == "ReturnStatement"
+			body = [{
+				type: "RenderMethodInline"
+				body: node.body.body[0].argument
+			}] 
 		node = 
 			type: "ClassDeclaration"
 			kind: "tag"
@@ -75,14 +90,5 @@ export default class TagsTransformer > TransformerBase
 				name: name
 			body:
 				type: "ClassBody"
-				body: [{
-					type: "MethodDefinition"
-					value:
-						params: []
-						body: node.body
-					body: node.body
-					key:
-						type: "Identifier"
-						name: "render"
-				}]
+				body: body
 		node

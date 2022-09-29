@@ -2,60 +2,56 @@
 
 exports[`advanced nesting 333 1`] = `
 "tag App
-	def render
-		<self>
+	<self>
+		<div>
+			<span>
+				\\"Test\\"
 			<div>
-				<span>
-					\\"Test\\"
+				<h2>
+					\\"Title\\"
 				<div>
-					<h2>
-						\\"Title\\"
-					<div>
+					<span>
+						<a href=\\"\\">
 						<span>
-							<a href=\\"\\">
-							<span>
-								\\"Test 2\\"
-							\\"Text\\"
-				<footer>
-					\\"F\\"
+							\\"Test 2\\"
+						\\"Text\\"
+			<footer>
+				\\"F\\"
 "
 `;
 
 exports[`multiple levels closed at once 31 1`] = `
 "tag App
-	def render
-		<self>
-			<div>
-				<section>
+	<self>
+		<div>
+			<section>
+				<div>
 					<div>
-						<div>
-							<h2>
-								\\"Title\\"
-				<footer>
-					\\"F\\"
+						<h2>
+							\\"Title\\"
+			<footer>
+				\\"F\\"
 "
 `;
 
 exports[`self closing nesting 1`] = `
 "tag App
-	def render
-		<self>
-			<div>
-				<a href=\\"\\">
-				<span>
-					\\"Test 2\\"
+	<self>
+		<div>
+			<a href=\\"\\">
+			<span>
+				\\"Test 2\\"
 "
 `;
 
 exports[`self closing nesting 12 1`] = `
 "tag App
-	def render
-		<self>
+	<self>
+		<div>
 			<div>
-				<div>
-					<h3>
-						\\"Title\\"
-				<footer>
-					\\"F\\"
+				<h3>
+					\\"Title\\"
+			<footer>
+				\\"F\\"
 "
 `;

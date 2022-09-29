@@ -9,11 +9,10 @@ exports[`arrow functions 1223 1`] = `
 
 exports[`arrow functions component 1`] = `
 "tag App
-	def render
-		<self>
-			<div>
-				<span>
-					\\"Test\\"
+	<self>
+		<div>
+			<span>
+				\\"Test\\"
 "
 `;
 

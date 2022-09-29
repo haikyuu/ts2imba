@@ -227,6 +227,7 @@ export default class TransformerBase
 			es.VisitorKeys.BlockComment = []
 			# es.VisitorKeys.MethodDefinition = ['value', 'body']
 			es.VisitorKeys.LineComment = []
+			es.VisitorKeys.RenderMethodInline = ['body']
 			es.VisitorKeys.JSXFragment = ['children', 'openingElement']
 			es.VisitorKeys.JSXElement = ['children', 'openingElement']
 			es.VisitorKeys.JSXOpeningElement = ['attributes', 'name']

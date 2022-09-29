@@ -2,8 +2,7 @@
 
 exports[`multiple levels closed at once 31 1`] = `
 "tag App
-	def render
-		<self>
-			<button onClick=(do console.log(\\"2\\"))>
+	<self>
+		<button onClick=(do console.log(\\"2\\"))>
 "
 `;

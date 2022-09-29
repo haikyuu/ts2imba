@@ -2,20 +2,18 @@
 
 exports[`jsx attributes 1 1`] = `
 "tag App
-	def render
-		<self>
-			<input onChange=(do
-					console.log \\"changed\\"
-					let a = new Date
-					return a
-			)>
+	<self>
+		<input onChange=(do
+				console.log \\"changed\\"
+				let a = new Date
+				return a
+		)>
 "
 `;
 
 exports[`jsx attributes 2 1`] = `
 "tag App
-	def render
-		<self>
-			<input onChange=(do console.log \\"changed\\")>
+	<self>
+		<input onChange=(do console.log \\"changed\\")>
 "
 `;
