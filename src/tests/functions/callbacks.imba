@@ -18,7 +18,7 @@ useEffect([value], () => {
 })
 '''
 
-test.only 'callbacks as last params are handled well' do
+test 'callbacks as last params are handled well' do
 	const result = await build tsx-code1
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')

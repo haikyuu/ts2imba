@@ -320,6 +320,10 @@ export default class TransformerBase
 		pushStack node.body
 		# recurse(node.body)
 		node
+	def MethodDefinitionExit(node)
+		popStack!
+		# recurse(node.body)
+		node
 	# def BlockStatement(node)
 	# 	pushStack node.body
 	# 	# recurse(node.body)

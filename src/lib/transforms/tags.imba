@@ -37,7 +37,11 @@ export default class TagsTransformer > TransformerBase
 	# 	func.id = node.id
 	# 	debugger
 	# 	this.FunctionDeclaration func
-		
+	def ClassDeclaration(node, ctx)
+		# transform classic react class syntax to tags
+		if node..body..body..find(do $1.key.name == "render")
+			node.kind = "tag"
+		node
 	def ArrowFunctionExpression(node)
 		node.id = name: "my-tag" unless node.id
 		this.FunctionDeclaration(node)

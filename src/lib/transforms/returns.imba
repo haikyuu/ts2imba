@@ -16,7 +16,7 @@ export default class ReturnsTransformer > TransformerBase
 	###
 
 	def unreturnify(scope, ctx, node, subctx)
-		if node.body..length > 0
+		if node..body..length > 0
 			let returns = getReturnStatements(node.body)
 			# Prevent implicit returns by adding an extra `return`
 			# if returns.length == 0 and node.type != 'Program'

@@ -27,7 +27,7 @@ res.status(_statusCode)
 })
 .send(html(_page, _viewData));'''
 
-test.only 'simple calls work as expected 3' do
+test 'simple calls work as expected 3' do
 	const result = await build tsx-code3
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')

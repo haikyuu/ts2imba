@@ -156,7 +156,14 @@ export default class Builder < BaseBuilder
 		if ctx.parent.type == 'JSXElement'
 			[walk(node.expression), "\n"]
 		else
-			[walk(node.expression)]
+			if node.expression.type == 'ArrowFunctionExpression' or node.expression.type == 'FunctionExpression'
+				const walked = walk(node.expression)
+				if "{walked}".trim().indexOf("\n") == -1
+					["(", walked, ")"]
+				else
+					["(", walked, indent().replace("\t", ""), ")"]
+			else
+				[walk(node.expression)]
 	def ImportNamespaceSpecifier(node)
 		["* as ", walk(node.local)]
 	def ObjectPattern(node\Node, ctx)
@@ -194,7 +201,6 @@ export default class Builder < BaseBuilder
 		else
 			space [ walk(node.local), "as", walk(node.exported) ]
 	def SpreadElement(node)
-		# debugger
 		['...', walk(node.argument)]
 	def ImportSpecifier(node)
 		let local = node.local.name
@@ -341,7 +347,12 @@ export default class Builder < BaseBuilder
 		let params = makeParams(node.params, node.defaults)
 		
 		const expr = if node.body.type == 'BlockStatement'
-			indent do(i) ["do", params, "\n", walk(node.body) ]
+			indent do 
+				const walked = walk(node.body)
+				if "{walked}".trim().indexOf("\n") === -1
+					["do", params, " ", "{walked}".trim() ]
+				else
+					["do", params, "\n", walked ]
 		else
 			["do", params," ", walk(node.body)]
 		if node._parenthesized
@@ -447,8 +458,7 @@ export default class Builder < BaseBuilder
 		if node.imba..inline-styles..length
 			[" [{node.imba.inline-styles.join(' ')}]"]
 		elif node.value
-			# debugger
-			[" {walk node.name}={walk node.value}"]
+			[" {walk node.name}", "=", walk node.value]
 		else
 			[" {walk node.name}"]
 	def JSXText(node)
@@ -626,13 +636,13 @@ export default class Builder < BaseBuilder
 	# true)
 	###
 
-	def paren(output, parenthesized = false)
-		# parenthesized ||= path[path.length - 1].._parenthesized
+	def paren(output, parenthesized, cb)
+		parenthesized ||= path[path.length - 1].._parenthesized
 		let isBlock = output.toString().match /\n$/
 
 		if parenthesized
 			if isBlock
-				[ '(', output, indent(), ')' ]
+				[ '(', output, indent(cb), ')' ]
 			else
 				[ '(', output, ')' ]
 		else

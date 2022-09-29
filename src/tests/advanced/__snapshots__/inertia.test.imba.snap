@@ -14,9 +14,7 @@ export const headers =
 const inertiaExpressAdapter = do({version, html, flashMessages, enableReload = false})
 	return do(req, res, next)
 		if req.method === \\"GET\\" and req.headers[headers.xInertia] and req.headers[headers.xInertiaVersion] !== version
-			return req.session.destroy do
-				res.writeHead(409, [headers.xInertiaLocation]: [req.url]).end()
-
+			return req.session.destroy do res.writeHead(409, [headers.xInertiaLocation]: [req.url]).end()
 		let _viewData = {}
 		let _sharedProps = {}
 		let _statusCode = 200

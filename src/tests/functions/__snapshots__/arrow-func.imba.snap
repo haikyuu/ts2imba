@@ -18,8 +18,7 @@ exports[`arrow functions component 1`] = `
 `;
 
 exports[`assignment pattern 23 1`] = `
-"const b64toBlob = do(b64Data, contentType = \\"\\", sliceSize = 512)
-	const byteCharacters = atob(b64Data)
+"const b64toBlob = do(b64Data, contentType = \\"\\", sliceSize = 512) const byteCharacters = atob(b64Data)
 "
 `;
 

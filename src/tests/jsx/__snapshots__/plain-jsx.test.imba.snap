@@ -25,8 +25,7 @@ export default tag my-tag
 
 exports[`component 112 1`] = `
 "def usePrevious(value)
-	useEffect(&, [value]) do
-		ref.current = value
+	useEffect(&, [value]) do ref.current = value
 	return ref.current
 export default tag App
 	def render

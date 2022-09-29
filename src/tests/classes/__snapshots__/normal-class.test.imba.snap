@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`normal class with jsx 1`] = `
-"class Comp
+"tag Comp
 	def render
 		<img>
 "
