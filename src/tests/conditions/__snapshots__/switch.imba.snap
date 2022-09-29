@@ -24,6 +24,5 @@ exports[`switch.imba 1 1`] = `
 				status: 405
 				headers:
 					Allow: \\"PUT, GET, DELETE\\")
-	return
 "
 `;

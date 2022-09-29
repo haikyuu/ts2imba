@@ -1,5 +1,40 @@
 // Vitest Snapshot v1
 
+exports[`anonymous function component 1`] = `
+"import React, {useState} from \\"react\\"
+export default tag my-tag
+	def render
+		const [a, setA] = useState(1)
+		const [b, setB] = useState(2)
+		def handleChangeA(event)
+			setA +event.target.value
+		def handleChangeB(event)
+			setB +event.target.value
+		<self>
+			<div>
+				<input type=\\"number\\" value=a onChange=handleChangeA>
+				<input type=\\"number\\" value=b onChange=handleChangeB>
+				<p>
+					a
+					\\" + \\"
+					b
+					\\" = \\"
+					a + b
+"
+`;
+
+exports[`component 112 1`] = `
+"def usePrevious(value)
+	useEffect(&, [value]) do
+		ref.current = value
+	return ref.current
+export default tag App
+	def render
+		<self>
+			<>
+"
+`;
+
 exports[`spaces_4 1`] = `
 "tag App
 	def render

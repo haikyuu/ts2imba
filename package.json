@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "start": "imba server.imba",
+    "dev": "imba -w server.imba",
+    "start": "npm run dev",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build",
     "build:server": "imba build server.imba",

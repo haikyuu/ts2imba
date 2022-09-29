@@ -14,7 +14,6 @@ export default class LoopsTransform < TransformerBase
 		_for.push node
 
 		injectUpdateIntoBody(node)
-		debugger
 		convertForToWhile(node)
 
 	def ForStatementExit(node)

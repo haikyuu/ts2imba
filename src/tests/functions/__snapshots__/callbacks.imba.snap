@@ -1,0 +1,7 @@
+// Vitest Snapshot v1
+
+exports[`callbacks as last params are handled well 1`] = `
+"useEffect([value]) do
+	ref.current = value
+"
+`;

@@ -17,7 +17,6 @@ export default class TagsTransformer > TransformerBase
 	def VariableDeclaration(node)
 		return node if node.declarations.length > 1
 		let decl = node.declarations[0]
-		console.log "nod", node
 		return node unless decl.init..type == 'ArrowFunctionExpression'
 		
 		let func = decl.init
@@ -39,8 +38,9 @@ export default class TagsTransformer > TransformerBase
 	# 	debugger
 	# 	this.FunctionDeclaration func
 		
-	# def ArrowFunctionExpression(node)
-	# 	this.FunctionDeclaration(node)
+	def ArrowFunctionExpression(node)
+		node.id = name: "my-tag" unless node.id
+		this.FunctionDeclaration(node)
 	def FunctionDeclaration(node)
 		let returns = getReturnStatements(node)
 		return node unless returns.find(do $1.argument.type == 'JSXElement' or $1.argument.type == 'JSXFragment')
@@ -49,7 +49,6 @@ export default class TagsTransformer > TransformerBase
 		const return-statement = node.body.body.find do $1.type == 'ReturnStatement' 
 
 		const tree = return-statement.argument
-		console.log "tree", tree
 		
 		return-statement.argument = {
 			...tree
@@ -64,7 +63,6 @@ export default class TagsTransformer > TransformerBase
 				attributes: []
 			}
 		}
-		console.log "tree", return-statement.argument
 		node = 
 			type: "ClassDeclaration"
 			kind: "tag"

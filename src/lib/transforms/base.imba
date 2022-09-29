@@ -230,6 +230,7 @@ export default class TransformerBase
 			es.VisitorKeys.JSXFragment = ['children', 'openingElement']
 			es.VisitorKeys.JSXElement = ['children', 'openingElement']
 			es.VisitorKeys.JSXOpeningElement = ['attributes', 'name']
+			es.VisitorKeys.JSXOpeningFragment = ['attributes', 'name']
 			es.VisitorKeys.JSXAttribute = ['name', 'value']
 			es.VisitorKeys.JSXExpressionContainer = []
 			es.VisitorKeys.JSXMemberExpression = []

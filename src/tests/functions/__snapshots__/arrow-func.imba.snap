@@ -3,7 +3,7 @@
 exports[`arrow functions 1223 1`] = `
 "let App = do
 	let a = 34
-	a
+	return a
 "
 `;
 
@@ -20,7 +20,6 @@ exports[`arrow functions component 1`] = `
 exports[`assignment pattern 23 1`] = `
 "const b64toBlob = do(b64Data, contentType = \\"\\", sliceSize = 512)
 	const byteCharacters = atob(b64Data)
-	return
 "
 `;
 

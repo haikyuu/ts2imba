@@ -179,7 +179,6 @@ export default class Builder < BaseBuilder
 	def ImportDefaultSpecifier(node)
 		[ walk(node.local) ]
 	def ExportNamedDeclaration(node)
-		console.log "export named", node
 		if node.specifiers..length
 			let specifiers = indent do
 				let props = node.specifiers.map do walk $1
@@ -204,13 +203,26 @@ export default class Builder < BaseBuilder
 			[local]
 		else
 			["{imported} as {local}"]
+	def ImportDefaultSpecifier(node)
+		node.local.name
+
 	def ImportDeclaration(node)
-		let specifiers = node.specifiers.map(do walk $1)
-		specifiers = delimit(specifiers, ',')
-		unless node.specifiers[0].type == 'ImportDefaultSpecifier' or node.specifiers[0].type == 'ImportNamespaceSpecifier'
-			specifiers = ['{', specifiers, '}']
-		["import", ' ', specifiers, " from " , walk(node.source), "\n" ]
-	def JSXFragment(node\Node)
+		return ["import", " ",walk(node.source), "\n"] unless node.specifiers.length > 0
+		# let specifiers = node.specifiers.map(do walk $1)
+		let namedImportSpecifiers = node.specifiers.filter do $1.type != 'ImportDefaultSpecifier'
+		const defaultImportSpecifier = node.specifiers.find do $1.type == 'ImportDefaultSpecifier'
+		let specifiers = []
+		specifiers.push walk(defaultImportSpecifier) if defaultImportSpecifier
+		const walkedNamed = namedImportSpecifiers.map do walk $1
+		specifiers = specifiers.concat ['{',delimit(walkedNamed, ','), '}'] if namedImportSpecifiers.length > 0
+		if defaultImportSpecifier and namedImportSpecifiers.length == 0
+			["import", " ", walk(defaultImportSpecifier), " from ", walk(node.source), "\n" ]
+		elif !defaultImportSpecifier and namedImportSpecifiers.length > 0
+			["import", ' ', '{', delimit(walkedNamed, ','), '}', " from " , walk(node.source), "\n" ]
+		else
+			["import", ' ',walk(defaultImportSpecifier), ", ", '{', delimit(walkedNamed, ','), '}', " from " , walk(node.source), "\n" ]
+		
+	def JSXFragment(node\ourceNode)
 		let expr = indent do(_indent)
 			let children = node.children.filter do(n)
 				return no if n.type == 'JSXText' and !n.value.trim!
@@ -531,15 +543,29 @@ export default class Builder < BaseBuilder
 
 	def CallExpression(node, ctx)
 		let callee = walk(node.callee)
-		let list = makeSequence(node.arguments)
+		const funcIndex = node.arguments.findIndex do $1.type == "ArrowFunctionExpression" or $1.type == 'FunctionExpression'
+		let argsWithoutFunc = node.arguments.map do(arg, i)
+			return arg unless i == funcIndex
+			return {...arg, type: "CallbackPlaceholder"}
+
+		if funcIndex > -1
+			if funcIndex === node.arguments.length - 1
+				argsWithoutFunc = argsWithoutFunc.slice 0, -1
+			const func = node.arguments[funcIndex]
+			let args = paren(makeSequence(argsWithoutFunc), yes)
+			args = "" if argsWithoutFunc.length === 0
+			return [callee, args, " ", walk func]
+		let list = makeSequence argsWithoutFunc
 		node._isStatement = ctx.parent.type == 'ExpressionStatement'
 
 		let hasArgs? = list.length > 0
-
 		if node._isStatement and hasArgs?
 			space [ callee, list ]
 		else
-			[ callee, paren(list, true) ]
+			[ callee, paren(list, yes) ]
+
+	def CallbackPlaceholder
+		["&"]
 
 
 	def LogicalExpression(node)

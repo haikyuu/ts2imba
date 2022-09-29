@@ -185,6 +185,5 @@ export default {
 '''
 test 'nested_objects_advanced 3' do
 	const result = await build tsx-code2
-	console.log result.code
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')

@@ -1,0 +1,10 @@
+// Vitest Snapshot v1
+
+exports[`simple calls work as expected 3 1`] = `
+"res.status(_statusCode).set({
+	...req.headers
+	..._headers
+	\\"Content-Type\\": \\"text/html\\"
+}).send html(_page, _viewData)
+"
+`;
