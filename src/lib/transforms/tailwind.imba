@@ -89,8 +89,8 @@ export default class TailwindTransformer < TransformerBase
 
 	def JSXAttribute(node)
 		if node.name.name == 'className'
-			const classes = node.value.value.split(" ")
-			node.imba = get-is classes
+			const classes = node.value.value..split(" ")
+			node.imba = get-is classes if classes
 			
 			# const declarations = v
 			# 	.split(" ")

@@ -1,5 +1,12 @@
 // Vitest Snapshot v1
 
+exports[`{} attributes 1`] = `
+"tag App
+	<self>
+		<div className=styles.name>
+"
+`;
+
 exports[`self closing 11 1`] = `
 "tag App
 	<self>
