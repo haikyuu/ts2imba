@@ -315,7 +315,11 @@ export default class Builder < BaseBuilder
 			[ '(', walk(node.callee), ')' ]
 
 		let args = if node.arguments..length
-			[ '(', makeSequence(node.arguments), ')' ]
+			const a = makeSequence(node.arguments)
+			if node.arguments.length == 1 and (node.arguments[0].type == "ArrowFunctionExpression" or node.arguments[0].type == "FunctionExpression")
+				[ ' ', a ]
+			else 
+				[ '(', a , ')' ]
 		else
 			[]
 
