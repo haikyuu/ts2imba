@@ -10,7 +10,7 @@ const corsOptions = {
 	origin: 'https://ts2imba.com',
 	optionsSuccessStatus: 200
 }
-let port = 3000
+let port = +process.env.PORT or 3000
 const args = process.argv.slice(2)
 const portArgPos = args.indexOf("--port") + 1
 if portArgPos > 0

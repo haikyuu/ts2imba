@@ -419,8 +419,31 @@ export default class Builder < BaseBuilder
 				let contents = prependAll(elements, indent())
 				[ "[", "\n", contents, _indent, "]" ]
 	
-	# def TemplateLiteral(node)
-	# 	[quote node.value]
+	def TemplateLiteral(node)
+		const newlines? = node.quasis.find do $1.value.raw.includes("\n")
+		let result = []
+		if newlines?
+			result.push '"""'
+			unless node.quasis[0]..value.raw.indexOf("\n") == 0
+				result.push '\n'
+		else
+			result.push '"'
+		const all = node.quasis.concat(node.expressions)
+		all.sort do $1.start > $2.start
+		for part in all
+			if part.type === 'TemplateElement'
+				result.push(walk part)
+			else
+				result.push('{', walk(part), '}')
+
+		if newlines?
+			result.push '\n"""'
+		else
+			result.push '"'
+		result
+	def TemplateElement(node)
+		[node.value.raw]
+
 	def Literal(node, ctx)
 		if (typeof node.value) == 'string'
 			if areQuotesRedundant(node) and ctx.parent..type == 'Property' and ctx.parent.key.start == node.start
@@ -445,6 +468,12 @@ export default class Builder < BaseBuilder
 		expr
 	# def JSXClosingElement(node)
 	# 	return ["\n"]
+	def MetaProperty(node)
+		["{walk node.meta}.{walk node.property}"]
+
+	def ImportExpression(node)
+		["import({walk node.source})"]
+
 	def JSXOpeningElement(node)
 		let attributes = node.attributes.map do walk $1
 		# let sp = node.attributes.length ? " ": ""
@@ -477,7 +506,6 @@ export default class Builder < BaseBuilder
 			else
 				[kind," ", walk(node.id), "\n", walk(node.body) ]
 	def RenderMethodInline(node, ctx)
-		debugger
 		walk node.body
 	def ClassBody(node, ctx)
 		# 
