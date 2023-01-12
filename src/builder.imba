@@ -309,10 +309,11 @@ export default class Builder < BaseBuilder
 		re
 
 	def NewExpression(node)
-		let callee = if node.callee..type == 'Identifier'
-			[ walk(node.callee) ]
-		else
-			[ '(', walk(node.callee), ')' ]
+		let callee = [ walk(node.callee) ]
+		# let callee = if node.callee..type == 'Identifier'
+		# 	[ walk(node.callee) ]
+		# else
+		# 	[ '(', walk(node.callee), ')' ]
 
 		let args = if node.arguments..length
 			const a = makeSequence(node.arguments)
@@ -376,6 +377,7 @@ export default class Builder < BaseBuilder
 
 	def AwaitExpression(node, ctx)
 		["await ", walk(node.argument)]
+
 	def AssignmentPattern(node, ctx)
 		return [walk(node.left), ' = ', walk(node.right)]
 
@@ -592,7 +594,7 @@ export default class Builder < BaseBuilder
 		let argsWithoutFunc = node.arguments.map do(arg, i)
 			return arg unless i == funcIndex
 			return {...arg, type: "CallbackPlaceholder"}
-
+		# debugger
 		if funcIndex > -1
 			if funcIndex === node.arguments.length - 1
 				argsWithoutFunc = argsWithoutFunc.slice 0, -1
@@ -605,6 +607,8 @@ export default class Builder < BaseBuilder
 
 		let hasArgs? = list.length > 0
 		if node._isStatement and hasArgs?
+			space [ callee, list ]
+		elif node.arguments.length == 1 and node.arguments[0].type == 'ObjectExpression'
 			space [ callee, list ]
 		else
 			[ callee, paren(list, yes) ]
