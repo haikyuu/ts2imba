@@ -632,7 +632,7 @@ export default class Builder < BaseBuilder
 		paren space [ walk(node.left), operator, walk(node.right) ]
 
 	def MemberExpression(node, ctx)
-		
+
 		let right = if node.computed
 			[ '[', walk(node.property), ']' ]
 		else if node._prefixed

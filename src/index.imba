@@ -4,7 +4,6 @@ import Builder from './builder'
 import * as acorn from "acorn"
 import * as walk from "acorn-walk"
 import jsx from "acorn-jsx"
-import CSS from 'css'
 import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
 import cssnano from 'cssnano'
@@ -38,7 +37,8 @@ def strip-types(source)
 	# 	catch err
 	# 		console.log err
 	# else
-	esbuild = await import('esbuild')
+	esbuild = await import('esbuild-wasm')
+	await esbuild.initialize({wasmURL: "/node_modules/esbuild-wasm/esbuild.wasm"})
 	const esbuild_options = 
 		jsx: "preserve"
 		loader: "tsx"
@@ -56,7 +56,7 @@ export def build(source, options = {})
 
 		tailwindcss(content: [{ raw: source }]),
 		cssnano()
-	]).process(__css)
+	]).process(__css, {from: undefined})
 	options.parsedCSS = parsedCSS
 	let warnings
 	options.trackComments = yes

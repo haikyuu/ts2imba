@@ -1,3 +1,4 @@
+import es from 'estraverse'
 import {
 	buildError,
 	clone,
@@ -218,7 +219,6 @@ export default class TransformerBase
 
 	def estraverse
 		_estraverse ||= do
-			let es = require('estraverse')
 			es.VisitorKeys.CoffeeEscapedExpression = []
 			es.VisitorKeys.CoffeeListExpression = ['test', 'body']
 			es.VisitorKeys.CoffeePrototypeExpression = ['object', 'property', 'computed']
