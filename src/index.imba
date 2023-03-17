@@ -28,9 +28,9 @@ export def parseJS(source, options)
 export def generate(ast, options)
 	new Builder(ast, options).get()
 
+let esbuild
 def strip-types(source)
 	
-	let esbuild
 	# if $web$
 	# 	try
 	# 		esbuild = await import('esbuild-wasm')
@@ -38,8 +38,9 @@ def strip-types(source)
 	# 	catch err
 	# 		console.log err
 	# else
-	esbuild = await import('esbuild-wasm')
-	await esbuild.initialize({wasmURL: esbuildUrl})
+	unless esbuild
+		esbuild = await import('esbuild-wasm')
+		await esbuild.initialize({wasmURL: esbuildUrl})
 	const esbuild_options = 
 		jsx: "preserve"
 		loader: "tsx"
