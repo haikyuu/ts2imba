@@ -15,6 +15,7 @@ import TailwindTransformer from './lib/transforms/tailwind'
 import LoopsTransformer from './lib/transforms/loops'
 import MembersTransformer from './lib/transforms/members'
 import ObjectsTransformer from './lib/transforms/objects'
+import esbuildUrl from 'esbuild-wasm/esbuild.wasm?url'
 # import FunctionTransformer from './lbi/transforms/functions'
 # import esbuild from 'esbuild-wasm'
 
@@ -38,7 +39,7 @@ def strip-types(source)
 	# 		console.log err
 	# else
 	esbuild = await import('esbuild-wasm')
-	await esbuild.initialize({wasmURL: "/node_modules/esbuild-wasm/esbuild.wasm"})
+	await esbuild.initialize({wasmURL: esbuildUrl})
 	const esbuild_options = 
 		jsx: "preserve"
 		loader: "tsx"

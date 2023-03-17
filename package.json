@@ -5,11 +5,8 @@
   "scripts": {
     "test": "vitest",
     "dev": "imba serve",
-    "start": "imba server.imba",
-    "build": "imba build",
-    "build:client": "vite build",
-    "build:server": "imba build server.imba",
-    "build:server:watch": "imba build -w server.imba"
+    "preview": "imba preview",
+    "build": "imba build"
   },
   "devDependencies": {
     "@jspm/core": "github:jspm/core",
@@ -54,6 +51,7 @@
     "picocolors": "^1.0.0",
     "run-s": "^0.0.0",
     "serve-static": "^1.15.0",
+    "spyfs": "^1.0.2",
     "tailwindcss": "^3.1.8",
     "vite-node": "^0.23.4",
     "vite-plugin-jspm": "^0.2.0"

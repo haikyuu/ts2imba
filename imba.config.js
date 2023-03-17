@@ -21,13 +21,14 @@ export default defineConfig(({ command, mode }) => {
 			define: {
 				__dirname: 'import.meta.url',
 				__filename: 'import.meta.url',
-				'process.platform': "'not win 32'",
-				'process.versions.node': "'16.12.0'"
+				// 'process.platform': "'not win 32'",
+				// 'process.versions.node': "'16.12.0'",
+				// 'process.versions': "'true'"
 			},
 			resolve: {
 				alias: {
 					// process: 'process/browser',
-					process: 'node_modules/@jspm/core/nodelibs/browser/process.js',
+					// process: 'node_modules/@jspm/core/nodelibs/browser/process.js',
 					path: 'node_modules/@jspm/core/nodelibs/browser/path.js',
 					stream: 'node_modules/@jspm/core/nodelibs/browser/stream.js',
 					// worker_threads: 'node_modules/@jspm/core/nodelibs/browser/worker_threads.js',
