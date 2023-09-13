@@ -281,7 +281,7 @@ export default class Builder < BaseBuilder
 		else
 			walk(node.left)
 
-		indent do ["for own ", left, " in ", walk(node.right),"\n", walk(node.body)]
+		indent do ["for own ", left, " of ", walk(node.right),"\n", walk(node.body)]
 
 	def VariableDeclarator(node)
 		let re
