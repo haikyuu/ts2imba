@@ -273,6 +273,16 @@ export default class Builder < BaseBuilder
 			walk(node.left)
 
 		indent do ["for ", left, " in ", walk(node.right),"\n", walk(node.body)]
+
+	def ForInStatement(node, ctx)
+		# debugger
+		const left = if node.left..type == 'VariableDeclaration'
+			walk(node.left.declarations[0].id)
+		else
+			walk(node.left)
+
+		indent do ["for own ", left, " in ", walk(node.right),"\n", walk(node.body)]
+
 	def VariableDeclarator(node)
 		let re
 		if node.init
@@ -348,6 +358,9 @@ export default class Builder < BaseBuilder
 
 			[ word, ' ', test, "\n", consequent, els ]
 
+	def TaggedTemplateExpression(node\Node)
+		debugger
+		throw "tagged not supp"
 	def ArrowFunctionExpression(node\Node)
 		let params = makeParams(node.params, node.defaults)
 		
@@ -428,6 +441,7 @@ export default class Builder < BaseBuilder
 	def TemplateLiteral(node)
 		const newlines? = node.quasis.find do $1.value.raw.includes("\n")
 		let result = []
+		debugger
 		if newlines?
 			result.push '"""'
 			unless node.quasis[0]..value.raw.indexOf("\n") == 0
