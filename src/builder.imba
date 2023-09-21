@@ -274,6 +274,9 @@ export default class Builder < BaseBuilder
 
 		indent do ["for ", left, " in ", walk(node.right),"\n", walk(node.body)]
 
+	def ChainExpression(node, ctx)
+		walk(node.expression)
+
 	def ForInStatement(node, ctx)
 		# debugger
 		const left = if node.left..type == 'VariableDeclaration'
@@ -646,13 +649,23 @@ export default class Builder < BaseBuilder
 		paren space [ walk(node.left), operator, walk(node.right) ]
 
 	def MemberExpression(node, ctx)
+		const optional? = node.optional
 
 		let right = if node.computed
-			[ '[', walk(node.property), ']' ]
+			if optional?
+				['..', '[', walk(node.property), ']' ]
+			else
+				[ '[', walk(node.property), ']' ]
 		else if node._prefixed
-			[ walk(node.property) ]
+			if optional?
+				['..', walk(node.property) ]
+			else
+				[ walk(node.property) ]
 		else
-			[ '.', walk(node.property) ]
+			if optional?
+				[ '..', walk(node.property) ]
+			else
+				[ '.', walk(node.property) ]
 
 		let expr = paren [ walk(node.object), right ]
 		if ctx.parent.type == 'Property'
