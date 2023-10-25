@@ -68,7 +68,7 @@ export default class TailwindTransformer < TransformerBase
 						"640": "sm" 
 						"768": "md" 
 						"1024": "lg" 
-						"1280px": "xl" 
+						"1280": "xl" 
 					const number = media.params.replace(/\D/g,'') 
 					if media.params.includes('max-width')
 						mod += "@!{number}"
@@ -91,7 +91,6 @@ export default class TailwindTransformer < TransformerBase
 		if node.name.name == 'className'
 			const classes = node.value.value..split(" ")
 			node.imba = get-is classes if classes
-			
 			# const declarations = v
 			# 	.split(" ")
 			# 	.map(do(cls) _css.nodes.find do({selector}) selector == ".{cls}")

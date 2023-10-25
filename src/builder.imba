@@ -506,9 +506,15 @@ export default class Builder < BaseBuilder
 		# let sp = node.attributes.length ? " ": ""
 		["<", attributes, ">"]
 	def JSXAttribute(node)
-		console.log "unhandled classes", node.imba..unhandled-classes if node.imba..unhandled-classes.length
-		if node.imba..inline-styles..length
-			[" [{node.imba.inline-styles.join(' ')}]"]
+		if const styles = node.imba..inline-styles
+			let res = []
+			if styles.length
+				res.push " [{styles.join(' ')}]"
+			if const classes = node.imba.unhandled-classes
+				res.push " {classes.join('.')}"
+			return res
+		# elif node.value.type == 'Literal'
+		# 	[" .{node.value.value.replace('.', '')}"]
 		elif node.value
 			[" {walk node.name}", "=", walk node.value]
 		else
