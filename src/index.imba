@@ -16,6 +16,9 @@ import LoopsTransformer from './lib/transforms/loops'
 import MembersTransformer from './lib/transforms/members'
 import ObjectsTransformer from './lib/transforms/objects'
 import esbuildUrl from 'esbuild-wasm/esbuild.wasm?url'
+
+import extractReactComponents from './h2r'
+
 # import FunctionTransformer from './lbi/transforms/functions'
 # import esbuild from 'esbuild-wasm'
 
@@ -47,12 +50,25 @@ def strip-types(source)
 		minify: no
 		treeShaking: no
 		tsconfigRaw: '{"compilerOptions": { "preserveValueImports": true }}'
+
 	const without_types = await esbuild.transform(source, esbuild_options)
 	without_types
 export def build(source, options = {})
 	options.filename ||= 'input.js'
 	options.source = source
-	
+	let components
+	if options.html
+		components = await extractReactComponents(source, {componentType: 'class'})
+		let res = []
+		for own k,source of components
+			res.push await build-tsx(source, options)
+			# res.push await {code: source}
+			# res.push source
+		L res.map(do $1.code).join('\n')
+		return {code: res.map(do $1.code).join('\n')}
+	build-tsx(source, options)
+
+def build-tsx(source, options = {})
 	let __css = '@tailwind base;\n@tailwind components;\n@tailwind utilities;\n'
 	let { css: parsedCSS } = await postcss([
 

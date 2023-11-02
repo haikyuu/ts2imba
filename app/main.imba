@@ -14,6 +14,31 @@ global css
 export const id = 'imba'
 export const extensions = ['.imba']
 export const aliases = ['Imba', 'imba']
+let html-code = '''
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	</head>
+	<body>
+
+	<header class=" header" data-component="MyHeader" data-dropzone='{"maxFiles":2}'>
+
+		<h1 class="heading " data-component="Heading">Hello, world!</h1>
+
+		<nav class="nav" data-component="Nav">
+		<ul class="list">
+			<li class="list-item" data-component="ListItem">#1</li>
+			<li class="list-item" data-component="ListItem">#2</li>
+		</ul>
+		</nav>
+
+	</header>
+
+	</body>
+	</html>
+'''
 
 let default-tsx-code = '''
 export default function Example() {
@@ -108,6 +133,17 @@ export default function Example() {
 }
 
 '''
+# default-tsx-code = '''
+# class MentionNode extends TextNode {
+#   constructor(mentionName, name) {
+#     super(mentionName ?? name)
+#   }
+#   a(){
+# 	return 2
+#   }
+# }
+
+# '''
 
 export const configuration = {
 	wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#%\^\&\*\(\)\=\$\-\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g,
@@ -143,10 +179,22 @@ export default tag App
 	monaco
 	imba-editor
 	ts-editor
+
+	get html do #html
+	set html(val)
+		if val and default-tsx-code === ts-code
+			ts-code = html-code
+		elif !val and html-code === ts-code
+			ts-code = default-tsx-code
+		#html = val
+
 	get imba-code do imba-editor..getValue!
+
 	get ts-code do ts-editor..getValue!
+	set ts-code(val)
+		ts-editor.setValue val
+
 	def new-chart(id, data)
-		console.log "::new chart"
 		const {Chart} = await import("@antv/g2")
 		document.getElementById(id).innerHTML = ""
 		const chart = new Chart
@@ -188,7 +236,8 @@ export default tag App
 		let codeModel
 		if lang == "typescript"
 			const modelUri = monaco.Uri.file("foo.tsx")
-			codeModel = monaco.editor.createModel default-tsx-code, "typescript", modelUri
+			const code = html ? html-code : default-tsx-code
+			codeModel = monaco.editor.createModel code, "typescript", modelUri
 			monaco.languages.typescript.typescriptDefaults.setCompilerOptions jsx: "react"
 			monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions
 				noSemanticValidation: false
@@ -240,14 +289,11 @@ export default tag App
 		imba-editor = create-editor $imba-editor, "imba"
 		convert!
 	def convert
-		const body = JSON.stringify code: ts-code
-		const code = await build(ts-code)
-		# const res = await global.fetch "{base}/api/imba", {
-		# 	body:body, method:"POST", headers: {'Content-Type': 'application/json'},
-		# }
-		# const code = (await res.json!).code
+		const code = await build(ts-code, {html})
 		imba-editor.setValue code.code
 		render-chart!
+
+
 	<self[size:100% py:4]>
 		<global @hotkey("command+s")=convert>
 		css .move 
@@ -261,7 +307,10 @@ export default tag App
 				<span[fw:600 fs:2xl ff:mono c:amber3 ml:2]> "TS 2 Imba"
 				for i in [1 .. 3]
 					<div.move[pos:absolute b:{i} h:{2/3} rd:3 bg:red3/30 zi:-1 w:100% animation:move 4s infinite forwards animation-delay:{i*200}ms]>
-			<span[fw:400 fs:lg ff:mono c:amber1 ml:5 mb:-1 fl:1]> "Transform js, ts or tsx and tailwind classes to imba"
+			<span[fw:400 fs:lg ff:mono c:amber1 ml:5 mb:-1 fl:1]> "Transform {html ? 'HTML': 'TSX'} and tailwind classes to imba"
+			<label>
+				<input type="checkbox" bind=html>
+				"HTML"
 			<button type="button" @click=convert [mx:4 cursor:pointer d:inline-flex ai:center rd:md bw:1px bc:transparent bgc:amber1 px:1rem py:.5rem fs:1rem lh:1.5rem fw:500 c:cool8 bxs:sm bgc@hover:amber2 outline@focus:2px solid transparent outline-offset@focus:2px bxs@focus:0 0 0 ,0 0 0 2px,1]>
 				"Convert"
 			<a[filter@hover:url(#red-glow)] href="https://github.com/haikyuu/ts2imba" target="_blank"> <svg[size:32px c:white stroke:amber3] src=github-logo>

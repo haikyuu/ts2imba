@@ -153,6 +153,12 @@ export def getReturnStatements(body)
 	# See what it ==, recurse as needed
 	if !node
 		[]
+	# elif node.type is "ArrowFunctionExpression"
+	# 	if node.expression
+	# 		[node.body]
+	# 	else
+	# 		# [node.body]
+	# 		getReturnStatements node.body
 	elif node.type is 'ReturnStatement'
 		[ node ]
 	elif node.type == 'FunctionDeclaration' or node.type == 'ArrowFunctionExpression'

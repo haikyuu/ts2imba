@@ -148,8 +148,8 @@ export default class Builder < BaseBuilder
 
 	def MethodDefinition(node, ctx)
 		let params = makeParams(node.value.params, node.value.defaults)
-		let expr = indent do(i)
-			["def"," ", walk(node.key) , params, "\n", walk(node.value.body) ]
+		let expr = indent do
+			[node.static ? 'static ': '',"def"," ", walk(node.key) , params, "\n", walk(node.value.body) ]
 
 
 	def JSXExpressionContainer(node\Node, ctx)
@@ -491,6 +491,7 @@ export default class Builder < BaseBuilder
 		expr
 	# def JSXClosingElement(node)
 	# 	return ["\n"]
+
 	def MetaProperty(node)
 		["{walk node.meta}.{walk node.property}"]
 
@@ -506,12 +507,12 @@ export default class Builder < BaseBuilder
 		# let sp = node.attributes.length ? " ": ""
 		["<", attributes, ">"]
 	def JSXAttribute(node)
-		if const styles = node.imba..inline-styles
+		if const i = node.imba
 			let res = []
-			if styles.length
-				res.push " [{styles.join(' ')}]"
-			if const classes = node.imba.unhandled-classes
-				res.push " {classes.join('.')}"
+			if i.inline-styles..length
+				res.push " [{i.inline-styles.join(' ')}]"
+			if i.unhandled-classes..length
+				res.push " .{i.unhandled-classes.join('.')}"
 			return res
 		# elif node.value.type == 'Literal'
 		# 	[" .{node.value.value.replace('.', '')}"]
@@ -526,24 +527,21 @@ export default class Builder < BaseBuilder
 
 	def JSXIdentifier(node)
 		[ node.name ]
+	def Super(node, ctx)
+		[ 'super' ]
 	def ClassDeclaration(node, ctx)
-		# 
 		let kind = node.kind or "class"
 		let expr = indent do(i)
 			if node.superClass
-				[kind," ", walk(node.id) , '<', walk(node.superClass), "\n", walk(node.body) ]
+				[kind," ", walk(node.id) , ' < ', walk(node.superClass), "\n", walk(node.body) ]
 			else
 				[kind," ", walk(node.id), "\n", walk(node.body) ]
 	def RenderMethodInline(node, ctx)
 		walk node.body
 	def ClassBody(node, ctx)
-		# 
-		const walked = node.body.map do walk $1
-		let ret = indent walked
-		ret
+		node.body.map do indent walk $1
 
 	def ExportDefaultDeclaration(node)
-		# 
 		return space ["export", "default", walk(node.declaration)]
 	def FunctionDeclaration(node, ctx)
 		
@@ -629,7 +627,9 @@ export default class Builder < BaseBuilder
 		node._isStatement = ctx.parent.type == 'ExpressionStatement'
 
 		let hasArgs? = list.length > 0
-		if node._isStatement and hasArgs?
+		if node.callee.type == 'Super'
+			[ callee, paren(list, yes) ]
+		elif node._isStatement and hasArgs?
 			space [ callee, list ]
 		elif node.arguments.length == 1 and node.arguments[0].type == 'ObjectExpression'
 			space [ callee, list ]
@@ -645,7 +645,8 @@ export default class Builder < BaseBuilder
 			'||': 'or'
 			'&&': 'and'
 
-		let oper = opers[node.operator]
+		let oper = opers[node.operator] or node.operator
+	
 		paren [ walk(node.left), ' ', oper, ' ', walk(node.right) ]
 
 	# Operator (+)

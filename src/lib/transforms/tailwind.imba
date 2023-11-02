@@ -58,7 +58,7 @@ export default class TailwindTransformer < TransformerBase
 		
 		for cls in classes
 			const results = overriden-find-rule.bind(this)(cls)
-			unhandled-classes.push cls if results.length == 0
+			unhandled-classes.push cls if results.length == 0 and cls
 			for r in results
 				let {rule, media, modifiers} = r
 				let mod = ""

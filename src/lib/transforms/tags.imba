@@ -21,11 +21,11 @@ export default class TagsTransformer > TransformerBase
 		
 		let func = decl.init
 		let returns = getReturnStatements(func)
-		
-		return node unless returns.find(do $1.argument.type == 'JSXElement')
-		func.type = 'FunctionDeclaration'
-		func.id = decl.id
-		this.FunctionDeclaration func
+		if returns.find(do $1.argument.type == 'JSXElement')
+			func.type = 'FunctionDeclaration'
+			func.id = decl.id
+			this.FunctionDeclaration func
+		else node 
 	# def VariableDeclarator(node)
 	# 	return node unless node.init.type == 'ArrowFunctionExpression'
 		
@@ -41,6 +41,35 @@ export default class TagsTransformer > TransformerBase
 		# transform classic react class syntax to tags
 		if node..body..body..find(do $1.key.name == "render")
 			node.kind = "tag"
+			const expression = node..body..body..[0]..value..body..body..[0]
+			if expression
+				expression.argument = {
+					...expression.argument,
+					type: "JSXElement"
+					children: [expression.argument]
+					openingElement:{	
+						...expression.argument.openingElement
+						type: "JSXOpeningElement"
+						name:
+							type: "JSXIdentifier"
+							name: "self"
+						attributes: []
+					}
+				}
+			if node.body.body.length == 1 and node.body.body[0].value.body.body.length == 1
+				node.body.body = [{
+					type: "RenderMethodInline"
+					body: expression.argument
+				}] 
+			# node = 
+			# 	type: "ClassDeclaration"
+			# 	kind: "tag"
+			# 	id:
+			# 		type: "Identifier"
+			# 		name: name
+			# 	body:
+			# 		type: "ClassBody"
+			# 		body: body
 		node
 	def ArrowFunctionExpression(node)
 		node.id = name: "my-tag" unless node.id
