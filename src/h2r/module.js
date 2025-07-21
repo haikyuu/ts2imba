@@ -1,7 +1,7 @@
 import * as t from "babel-types"
 import {toFileName} from "./writer"
 import * as walk from "babylon-walk"
-console.log("::w", walk)
+
 function getCJSImportDeclaration(variable, moduleName) {
   return t.variableDeclaration("const", [
     t.variableDeclarator(

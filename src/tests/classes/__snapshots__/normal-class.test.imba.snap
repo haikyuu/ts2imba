@@ -2,7 +2,7 @@
 
 exports[`normal class with jsx 1`] = `
 "tag Comp
-	def render
+	<self>
 		<img>
 "
 `;

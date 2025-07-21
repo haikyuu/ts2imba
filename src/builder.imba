@@ -335,7 +335,7 @@ export default class Builder < BaseBuilder
 			else 
 				[ '(', a , ')' ]
 		else
-			[]
+			[ '(', ')' ]
 
 		paren [ "new ", callee, args ]
 
@@ -392,7 +392,14 @@ export default class Builder < BaseBuilder
 			expr
 
 	def AwaitExpression(node, ctx)
-		["await ", walk(node.argument)]
+		let output = ["await ", walk(node.argument)]
+		
+		# Add parentheses when await is the object of a member expression
+		# to preserve operator precedence: (await promise).method() vs await promise.method()
+		if ctx.parent and ctx.parent.type == 'MemberExpression' and ctx.parent.object == node
+			output = paren(output, true)
+		
+		output
 
 	def AssignmentPattern(node, ctx)
 		return [walk(node.left), ' = ', walk(node.right)]
@@ -444,23 +451,26 @@ export default class Builder < BaseBuilder
 	def TemplateLiteral(node)
 		const newlines? = node.quasis.find do $1.value.raw.includes("\n")
 		let result = []
-		debugger
 		if newlines?
-			result.push '"""'
-			unless node.quasis[0]..value.raw.indexOf("\n") == 0
-				result.push '\n'
+			result.push '`'
 		else
 			result.push '"'
-		const all = node.quasis.concat(node.expressions)
-		all.sort do $1.start > $2.start
-		for part in all
-			if part.type === 'TemplateElement'
-				result.push(walk part)
-			else
-				result.push('{', walk(part), '}')
+		
+		# Template literals alternate: quasi[0], expr[0], quasi[1], expr[1], ..., quasi[n]
+		for i in [0...node.quasis.length]
+			# Add the quasi (template element)
+			let quasiContent = node.quasis[i].value.raw
+			# For single-line templates (double quotes), escape inner double quotes
+			if !newlines?
+				quasiContent = quasiContent.replace(/"/g, '\\"')
+			result.push(quasiContent)
+			
+			# Add the expression if it exists (there's always one less expression than quasis)
+			if i < node.expressions.length
+				result.push('{', walk(node.expressions[i]), '}')
 
 		if newlines?
-			result.push '\n"""'
+			result.push '`'
 		else
 			result.push '"'
 		result
@@ -632,7 +642,10 @@ export default class Builder < BaseBuilder
 		elif node._isStatement and hasArgs?
 			space [ callee, list ]
 		elif node.arguments.length == 1 and node.arguments[0].type == 'ObjectExpression'
-			space [ callee, list ]
+			if node.callee.type == 'MemberExpression'
+				[ callee, paren(list, yes) ]
+			else
+				space [ callee, list ]
 		else
 			[ callee, paren(list, yes) ]
 

@@ -46,6 +46,7 @@ export default defineConfig(({ command, mode }) => {
 			exclude: ["src/tests/c2js_specs/**/*"],
 			globals: true,
 			include: ["src/tests/**/*.imba"],
+			setupFiles: ['./setup.imba'],
 		}
 	}
 });

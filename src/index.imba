@@ -15,15 +15,13 @@ import TailwindTransformer from './lib/transforms/tailwind'
 import LoopsTransformer from './lib/transforms/loops'
 import MembersTransformer from './lib/transforms/members'
 import ObjectsTransformer from './lib/transforms/objects'
-import esbuildUrl from 'esbuild-wasm/esbuild.wasm?url'
 
 import extractReactComponents from './h2r'
-
 # import FunctionTransformer from './lbi/transforms/functions'
 # import esbuild from 'esbuild-wasm'
 
 export def parseJS(source, options)
-	try 
+	try
 		const parsed = acorn.Parser.extend(jsx()).parse(source, {sourceType: "module", ecmaVersion: 2022, ...options})
 	catch error
 		throw buildError(error, source, options.filename)
@@ -33,18 +31,17 @@ export def generate(ast, options)
 
 let esbuild
 def strip-types(source)
-	
-	# if $web$
-	# 	try
-	# 		esbuild = await import('esbuild-wasm')
-	# 		await esbuild.initialize(wasmURL: '../node_modules/esbuild-wasm/esbuild.wasm')
-	# 	catch err
-	# 		console.log err
-	# else
 	unless esbuild
-		esbuild = await import('esbuild-wasm')
-		await esbuild.initialize({wasmURL: esbuildUrl})
-	const esbuild_options = 
+		if $node$
+			esbuild = await import('esbuild')
+		else
+			esbuild = await import('esbuild-wasm')
+			# const esbuildUrl = 'https://esm.sh/esbuild-wasm@0.14.47/esbuild.wasm'
+			const esbuildUrl = await import('esbuild-wasm/esbuild.wasm?url')
+
+			await esbuild.initialize({wasmURL: esbuildUrl})
+
+	const esbuild_options =
 		jsx: "preserve"
 		loader: "tsx"
 		minify: no
@@ -80,7 +77,7 @@ def build-tsx(source, options = {})
 	options.trackComments = yes
 	let src = await strip-types(source)
 	let ast = await parseJS(src.code, options)
-	# 
+	#
 	{ast, warnings} = transform(ast, options)
 	const res = generate(ast, options)
 	{code:res.code, ast, warnings}
@@ -105,7 +102,7 @@ def build-tsx(source, options = {})
 export def transform(ast, options = {})
 	let ctx = {}
 	def run(classes)
-		
+
 		TransformerBase.run(ast, options, classes, ctx)
 	let comments = not (options.comments == false)
 

@@ -5,7 +5,7 @@ exports[`jsx attributes 1 1`] = `
 	<self>
 		<input onChange=(do
 				console.log \\"changed\\"
-				let a = new Date
+				let a = new Date()
 				return a
 		)>
 "

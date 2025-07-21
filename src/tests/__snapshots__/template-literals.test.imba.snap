@@ -1,0 +1,37 @@
+// Vitest Snapshot v1
+
+exports[`empty template literal 1`] = `
+"let e = \\"\\"
+"
+`;
+
+exports[`multi line template literal 1`] = `
+"let b = \`this is line 1
+and this is {name} on line 2\`
+"
+`;
+
+exports[`nested template literals 1`] = `
+"let d = \\"outer {\\"inner {value}\\"} end\\"
+"
+`;
+
+exports[`single line template literal 1`] = `
+"let a = \\"today is {new Date()} but 1 + 1 = {2}\\"
+"
+`;
+
+exports[`template literal with complex expressions 1`] = `
+"let c = \\"result: {a + b} and {func(x, y)}\\"
+"
+`;
+
+exports[`template literal with mixed quotes 1`] = `
+"let g = \\"He said \\\\\\"{message}\\\\\\" to me\\"
+"
+`;
+
+exports[`template literal with only expressions 1`] = `
+"let f = \\"{x}{y}{z}\\"
+"
+`;

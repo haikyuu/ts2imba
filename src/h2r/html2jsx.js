@@ -275,7 +275,11 @@ function isNumeric(input) {
 var createElement;
   // Browser environment, use document.createElement directly.
 createElement = function (tag) {
-return document.createElement(tag);
+	if(globalThis.document){
+		return document.createElement(tag);
+	}else{
+		return globalThis.imba_createElement(tag)
+	}
 };
 
 

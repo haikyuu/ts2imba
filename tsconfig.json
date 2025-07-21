@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		"target": "es2018",
+		"module": "es2022",
 	  "types": [
 			"vitest/importMeta"
 	  ]

@@ -1,0 +1,9 @@
+// Vitest Snapshot v1
+
+exports[`dns resolve with flat 1`] = `
+"import {* as dns} from \\"dns\\"
+def resolveDomain(domain)
+	const records = (await dns.resolveTxt(domain)).flat()
+	records
+"
+`;

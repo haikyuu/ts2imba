@@ -1,0 +1,50 @@
+// Vitest Snapshot v1
+
+exports[`async with chained methods 1`] = `
+"def test1
+	const records = (await dns.resolveTxt(domain)).flat().filter do(x) x
+	records
+"
+`;
+
+exports[`async with computed property access 1`] = `
+"def test5
+	const computed = (await api.getData())[0].value
+	computed
+"
+`;
+
+exports[`async with double parentheses 1`] = `
+"def test3
+	const data = (await api.getData()).map do(x) x.id
+	data
+"
+`;
+
+exports[`async with json method 1`] = `
+"def test2
+	const result = (await fetch(url)).json()
+	result
+"
+`;
+
+exports[`async with multiple chained methods 1`] = `
+"def test6
+	const chained = (await promise1).method1().method2().method3()
+	chained
+"
+`;
+
+exports[`async with optional chaining 1`] = `
+"def test7
+	const optional = (await maybePromise)..optionalMethod()
+	optional
+"
+`;
+
+exports[`nested async expressions 1`] = `
+"def test4
+	const nested = (await (await fetch(url)).json()).data
+	nested
+"
+`;

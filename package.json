@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "vitest",
+    "postinstall": "test -d ../imba/packages/imba && npm link imba || echo 'Skipping imba link in CI'",
+    "test": "imba test",
     "dev": "imba serve",
     "preview": "imba preview",
     "build": "imba build"
@@ -23,19 +24,19 @@
     "esbuild-wasm": "^0.14.47",
     "escodegen": "^2.0.0",
     "estraverse": "^5.3.0",
-    "imba": "^2.0.0-alpha.231",
+    "imba": "^2.0.0-alpha.247",
     "jsdom": "^20.0.0",
     "monaco-editor": "^0.34.0",
     "postcss": "^8.4.14",
     "process": "^0.11.10",
-    "source-map": "^0.7.4",
+    "source-map": "^0.7.4"
+  },
+  "dependencies": {
     "vite": "^4.2.0",
     "vite-plugin-monaco-editor": "^1.1.0",
     "vite-tsconfig-paths-silent": "^4.0.5",
     "vitest": "^0.23.4",
-    "vitest-github-actions-reporter-temp": "^0.8.3"
-  },
-  "dependencies": {
+    "vitest-github-actions-reporter-temp": "^0.8.3",
     "@antv/g2": "^4.2.8",
     "@rollup/pluginutils": "^5.0.2",
     "babel-generator": "^6.26.1",
