@@ -1,0 +1,7 @@
+// Vitest Snapshot v1
+
+exports[`block_comments_with_space 1`] = `
+"a()
+hib()
+"
+`;

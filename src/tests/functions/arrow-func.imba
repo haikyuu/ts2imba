@@ -9,6 +9,7 @@ test 'two params 33' do
 	const result = await build tsx-code4
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 
 let tsx-code1 = '''
@@ -22,6 +23,7 @@ test 'arrow functions 1223' do
 	const result = await build tsx-code1
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 let tsx-code = '''
 let App = () => {
@@ -37,6 +39,7 @@ test 'arrow functions component' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 let tsx-code3 = '''
 const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
@@ -48,3 +51,4 @@ test 'assignment pattern 23' do
 	const result = await build tsx-code3
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

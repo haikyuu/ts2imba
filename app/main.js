@@ -6,17 +6,20 @@ import preflight from "tailwindcss/lib/css/preflight.css?raw";
 fetch("/manifest.json")
   .then(async (res) => {
     const manifest = await res.json();
+		const key = Object.keys(manifest).find(k=> /_main-.*\.js/.test(k))
 
-    const main = manifest["app/main.imba"].file;
+		console.log("manifest", key, manifest[key])
+
+    const main = manifest[key].file;
 
     const link = `${location.href}${main}/css/preflight.css`;
 
     const p =
       import.meta.env.MODE == "production"
         ? link
-        : `${window.__dirname}/css/preflight.css`;
+        : `/preflight.css`;
 
-
+		console.log("Rrr", p)
     vol.fromJSON(
       {
         [p]: preflight,
@@ -31,6 +34,7 @@ fetch("/manifest.json")
     // dev -____-
 
     const p = `${window.__dirname}/css/preflight.css`;
+		console.log("ppp", p)
     vol.fromJSON(
       {
         [p]: preflight,

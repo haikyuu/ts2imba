@@ -1,0 +1,7 @@
+// Vitest Snapshot v1
+
+exports[`unicode 1`] = `
+"\\"\\\\u2028\\"
+\\"\\\\u2029\\"
+"
+`;

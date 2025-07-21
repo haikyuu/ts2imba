@@ -256,7 +256,11 @@ export default class TransformerBase
 	def popStack()
 		
 		let [ oldScope, oldCtx ] = [ scope, ctx ]
-		[ scope, ctx ] = scopes.pop()
+		let popped = scopes.pop()
+		if popped
+			[ scope, ctx ] = popped
+		else
+			console.warn "popStack called but scopes array is empty"
 		
 		onScopeExit(scope, ctx, oldScope, oldCtx) if onScopeExit
 
@@ -306,7 +310,8 @@ export default class TransformerBase
 		pushStack node.body
 		node
 	def ArrowFunctionExpression(node)
-		pushStack node.body
+		if node.body and node.body.type == 'BlockStatement'
+			pushStack node.body
 		node
 	
 	# Added

@@ -14,3 +14,4 @@ test 'multiple levels closed at once 31' do
 	const result = await build tsx-code2
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

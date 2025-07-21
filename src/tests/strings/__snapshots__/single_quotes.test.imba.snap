@@ -1,0 +1,6 @@
+// Vitest Snapshot v1
+
+exports[`single_quotes 1`] = `
+"\\"\\\\n\\"
+"
+`;

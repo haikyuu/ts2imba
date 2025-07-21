@@ -22,6 +22,7 @@ test 'multiple levels closed at once 31' do
 	const result = await build tsx-code2
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 let tsx-code3 = '''
 function App(){
@@ -40,6 +41,7 @@ test 'self closing nesting 12' do
 	const result = await build tsx-code3
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 
 
@@ -58,6 +60,7 @@ test 'self closing nesting' do
 	const result = await build tsx-code1
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 
 let tsx-code = '''
@@ -84,3 +87,4 @@ test 'advanced nesting 333' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

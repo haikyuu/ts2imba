@@ -1,0 +1,10 @@
+// Vitest Snapshot v1
+
+exports[`comment_before_function 1`] = `
+"a()
+###
+# comment
+###def x
+	return
+"
+`;

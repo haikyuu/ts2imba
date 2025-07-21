@@ -14,6 +14,7 @@ test 'spaces_4' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 const tsx-code2 = '''
 import React, { useState } from 'react';
@@ -46,6 +47,7 @@ test 'anonymous function component' do
 	const result = await build tsx-code2
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 const tsx-code3 = '''
 function usePrevious(value) {
@@ -68,3 +70,4 @@ test 'component 112' do
 	const result = await build tsx-code3
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

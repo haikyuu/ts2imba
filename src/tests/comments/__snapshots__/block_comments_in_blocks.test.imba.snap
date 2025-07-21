@@ -1,0 +1,10 @@
+// Vitest Snapshot v1
+
+exports[`block_comments_in_blocks 1`] = `
+"if x
+	###
+# hello
+# world
+###	y()
+"
+`;

@@ -15,6 +15,7 @@ test 'simple class' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 let tsx-code2 = '''
 function App(){
@@ -30,6 +31,7 @@ test 'simple class with breakpoint' do
 	const result = await build tsx-code2
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 let tsx-code3 = '''
 function App(){
@@ -45,3 +47,4 @@ test 'falls back to color1 for color-0.5 in tailwind' do
 	const result = await build tsx-code3
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

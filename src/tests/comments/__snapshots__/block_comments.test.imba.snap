@@ -1,0 +1,9 @@
+// Vitest Snapshot v1
+
+exports[`block_comments 1`] = `
+"a()
+###
+# hello
+###b()
+"
+`;

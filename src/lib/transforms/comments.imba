@@ -16,7 +16,7 @@ export default class CommentsTransformer < TransformerBase
 	comments
 
 	def Program(node)
-		comments = node.comments
+		comments = node.comments || []
 		updateCommentTypes()
 		node.body = addCommentsToList([0,Infinity], node.body)
 		node

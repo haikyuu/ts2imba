@@ -49,3 +49,4 @@ test 'strip types + export named declarations 123' do
 	const result = await build tsx-code1
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

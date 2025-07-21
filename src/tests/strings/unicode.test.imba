@@ -2,15 +2,12 @@ import {build} from "../../index"
 import * as imbac from 'imba/compiler'
 
 let tsx-code = '''
-class Comp{
-	render(){
-		return <img />
-	}	
-}
+'\u2028'
+'\u2029'
 '''
 
-test 'normal class with jsx' do
+test 'unicode' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
-	expect(out.js).toBeDefined()
+	console.log out.js

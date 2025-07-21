@@ -1,17 +1,18 @@
-import {build} from "../../../index"
+import {build} from "../../index"
 import * as imbac from 'imba/compiler'
 
 let tsx-code = '''
-'\u2028'
-'\u2029'
+if (x) {
+  /*
+   * hello
+   * world
+   */
+  y();
+}
 '''
 
-let imba-code = '''
-'\u2028'
-'\u2029'
-'''
-test 'unicode' do
+test 'block_comments_in_blocks' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
-	console.log out.js
+	expect(out.js).toBeDefined()

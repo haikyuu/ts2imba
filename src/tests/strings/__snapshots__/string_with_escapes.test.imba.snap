@@ -1,0 +1,6 @@
+// Vitest Snapshot v1
+
+exports[`string_with_escapes 1`] = `
+"\\"\\\\n\\"
+"
+`;

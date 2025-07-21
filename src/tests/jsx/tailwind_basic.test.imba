@@ -10,6 +10,7 @@ test 'tailwind css code 1333333' do
 	const result = await build tsx-code1
 	expect(result.code).toMatchSnapshot!
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()
 
 let tsx-code = '''
 /* This example requires Tailwind CSS v2.0+ */
@@ -104,3 +105,4 @@ test 'tailwind css code 12' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

@@ -22,7 +22,19 @@ import extractReactComponents from './h2r'
 
 export def parseJS(source, options)
 	try
-		const parsed = acorn.Parser.extend(jsx()).parse(source, {sourceType: "module", ecmaVersion: 2022, ...options})
+		let comments = []
+		const parsed = acorn.Parser.extend(jsx()).parse(source, {
+			sourceType: "module", 
+			ecmaVersion: 2022, 
+			onComment: comments,
+			ranges: true,
+			locations: true,
+			...options
+		})
+		# Manually attach comments to the AST
+		parsed.comments = comments
+		console.log "DEBUG: Manual comment attachment, found", comments.length, "comments"
+		parsed
 	catch error
 		throw buildError(error, source, options.filename)
 
@@ -75,8 +87,21 @@ def build-tsx(source, options = {})
 	options.parsedCSS = parsedCSS
 	let warnings
 	options.trackComments = yes
-	let src = await strip-types(source)
+	
+	# Skip type stripping if source doesn't contain TypeScript syntax
+	let hasTypeScript = /\b(interface|type|enum|namespace|declare|as\s+\w+|:\s*\w+|<\w+>|\?\s*:)/.test(source)
+	let src
+	if hasTypeScript
+		src = await strip-types(source)
+		console.log "DEBUG: TypeScript detected, stripped types"
+	else
+		src = { code: source }
+		console.log "DEBUG: No TypeScript detected, preserving original source"
+	
+	console.log "DEBUG: Original source:", source
+	console.log "DEBUG: Final source for parsing:", src.code
 	let ast = await parseJS(src.code, options)
+	console.log "DEBUG: AST comments:", ast.comments
 	#
 	{ast, warnings} = transform(ast, options)
 	const res = generate(ast, options)
@@ -107,9 +132,9 @@ export def transform(ast, options = {})
 	let comments = not (options.comments == false)
 
 	# Injects comments into the AST as BlockComment and LineComment nodes.
-	# run [
-	# 	CommentTransformer
-	# ] if comments
+	run [
+		CommentTransformer
+	] if comments
 
 	# Moves named functions to the top of the scope.
 	run [

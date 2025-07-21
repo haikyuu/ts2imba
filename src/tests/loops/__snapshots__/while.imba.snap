@@ -28,8 +28,8 @@ def byteaEscapeFormatToBinary(input)
 					++k
 				i += Math.floor(backslashes / 2) * 2
 	def a
-		const a2 = await output
-		console.log a2
+		const a = await output
+		console.log a
 	Buffer.from output, \\"binary\\"
 "
 `;

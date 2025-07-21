@@ -16,3 +16,4 @@ test 'dns resolve with flat' do
 	expect(result.code).not.toContain('await dns.resolveTxt(domain).flat()')
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
+	expect(out.js).toBeDefined()

@@ -1,15 +1,16 @@
-import {build} from "../../../index"
+import {build} from "../../index"
 import * as imbac from 'imba/compiler'
 
 let tsx-code = '''
-"\n"
+a();
+/*
+ * hello
+ */
+b();
 '''
 
-let imba-code = '''
-'\n'
-'''
-test 'string_with_escapes' do
+test 'block_comments' do
 	const result = await build tsx-code
 	expect(result.code).toMatchSnapshot()
 	const out = imbac.compile(result.code, sourceId: 'sth')
-	console.log out.js
+	expect(out.js).toBeDefined()

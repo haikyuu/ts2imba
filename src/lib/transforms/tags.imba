@@ -76,12 +76,15 @@ export default class TagsTransformer > TransformerBase
 		this.FunctionDeclaration(node)
 	def FunctionDeclaration(node)
 		let returns = getReturnStatements(node)
-		return node unless returns.find(do $1.argument.type == 'JSXElement' or $1.argument.type == 'JSXFragment')
+		return node unless returns.find(do $1.argument and ($1.argument.type == 'JSXElement' or $1.argument.type == 'JSXFragment'))
 		# Prevent implicit returns by adding an extra `return`
 		const name = node.id.name
 		const return-statement = node.body.body.find do $1.type == 'ReturnStatement' 
 
 		const tree = return-statement.argument
+		
+		# Skip transformation if return statement has no argument (empty return)
+		return node unless tree
 		
 		return-statement.argument = {
 			...tree

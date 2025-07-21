@@ -754,6 +754,24 @@ export default class Builder < BaseBuilder
 			ret.push item
 		ret
 
+	def BlockComment(node)
+		let lines = node.value.split('\n')
+		if lines.length == 1
+			# Single line block comment - just return the content as-is since CommentsTransformer already processed it
+			node.value.trim()
+		else
+			# Multi-line block comment - wrap in ### and return as-is since CommentsTransformer already processed it
+			let result = ["###"]
+			for line in lines
+				let trimmed = line.trim()
+				if trimmed
+					result.push(trimmed)
+			result.push("###")
+			result.join('\n')
+
+	def LineComment(node)
+		"# " + node.value
+
 
 
 

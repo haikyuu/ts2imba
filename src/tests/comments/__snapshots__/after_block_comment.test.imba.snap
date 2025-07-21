@@ -1,0 +1,10 @@
+// Vitest Snapshot v1
+
+exports[`after_block_comment 1`] = `
+"def x
+	y
+	###
+# hello
+###
+"
+`;

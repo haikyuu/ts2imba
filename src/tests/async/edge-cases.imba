@@ -55,39 +55,46 @@ test 'async with chained methods' do
 	expect(result1.code).toContain('(await dns.resolveTxt(domain)).flat().filter')
 	expect(result1.code).toMatchSnapshot()
 	const out1 = imbac.compile(result1.code, sourceId: 'test1')
+	expect(out1.js).toBeDefined()
 
 test 'async with json method' do
 	const result2 = await build tsx-code2
 	expect(result2.code).toContain('(await fetch(url)).json()')
 	expect(result2.code).toMatchSnapshot()
 	const out2 = imbac.compile(result2.code, sourceId: 'test2')
+	expect(out2.js).toBeDefined()
 
 test 'async with double parentheses' do
 	const result3 = await build tsx-code3
 	expect(result3.code).toContain('(await api.getData()).map')
 	expect(result3.code).toMatchSnapshot()
 	const out3 = imbac.compile(result3.code, sourceId: 'test3')
+	expect(out3.js).toBeDefined()
 
 test 'nested async expressions' do
 	const result4 = await build tsx-code4
 	expect(result4.code).toContain('(await (await fetch(url)).json()).data')
 	expect(result4.code).toMatchSnapshot()
 	const out4 = imbac.compile(result4.code, sourceId: 'test4')
+	expect(out4.js).toBeDefined()
 
 test 'async with computed property access' do
 	const result5 = await build tsx-code5
 	expect(result5.code).toContain('(await api.getData())[0].value')
 	expect(result5.code).toMatchSnapshot()
 	const out5 = imbac.compile(result5.code, sourceId: 'test5')
+	expect(out5.js).toBeDefined()
 
 test 'async with multiple chained methods' do
 	const result6 = await build tsx-code6
 	expect(result6.code).toContain('(await promise1).method1().method2().method3()')
 	expect(result6.code).toMatchSnapshot()
 	const out6 = imbac.compile(result6.code, sourceId: 'test6')
+	expect(out6.js).toBeDefined()
 
 test 'async with optional chaining' do
 	const result7 = await build tsx-code7
 	expect(result7.code).toContain('(await maybePromise)')
 	expect(result7.code).toMatchSnapshot()
 	const out7 = imbac.compile(result7.code, sourceId: 'test7')
+	expect(out7.js).toBeDefined()
